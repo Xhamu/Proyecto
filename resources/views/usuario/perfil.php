@@ -2,10 +2,10 @@
 <html>
 
 <head>
-    <title>Home - Studium</title>
+    <title>Mi perfil - Studium</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link href="css/main.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
 </head>
 
 <body class="is-preload">
@@ -54,25 +54,25 @@
             <section>
                 <ul class="links">
                     <li>
-                        <a href="/admin">
+                        <a href="#">
                             <h3>Panel de administración</h3>
                             <p>Mostrar panel de administración</p>
                         </a>
                     </li>
                     <li>
-                        <a href="/usuario/id">
+                        <a href="#">
                             <h3>Mi perfil</h3>
                             <p>Mostrar mi perfil</p>
                         </a>
                     </li>
                     <li>
-                        <a href="/usuario/id/amistades">
+                        <a href="#">
                             <h3>Mis amistades</h3>
                             <p>Mostrar mis amistades</p>
                         </a>
                     </li>
                     <li>
-                        <a href="/noticias">
+                        <a href="#">
                             <h3>Últimas noticias</h3>
                             <p>Mostrar las últimas noticias</p>
                         </a>
@@ -84,104 +84,94 @@
 
         <!-- Main -->
         <div id="main">
-            <section>
-                <h3>Últimos usuarios registrados</h3>
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Nombre de Usuario</th>
-                                <th>Email</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- foreach -->
-                            <tr>
-                                <td>Samuel Rodriguez</td>
-                                <td>xhamu</td>
-                                <td>samuelgeminis5@gmail.com</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <!-- Post -->
+            <h1>Tus publicaciones</h1>
+            <article class="post">
+                <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod
+                    placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non
+                    congue ullam corper. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta
+                    lectus vitae, ultricies congue gravida diam non fringilla.</p>
+                <div class="col-12">
+                    <ul class="actions">
+                        <li><input class="button large" type="submit" value="Mostrar publicación" /></li>
+                    </ul>
                 </div>
-            </section>
-            <section>
-                <h3>Últimas publicaciones realizadas</h3>
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Nombre Usuario</th>
-                                <th>Email Usuario</th>
-                                <th>Mensaje</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- foreach -->
-                            <tr>
-                                <td>Samuel Rodriguez</td>
-                                <td>samuelgeminis5@gmail.com</td>
-                                <td>¡Que bonito es estudiar!</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <footer>
+                    <ul class="stats">
+                        <li class="icon solid fa-heart"> 28</li>
+                        <li class="icon solid fa-comment"> 128</li>
+                    </ul>
+                </footer>
+                <div class="meta">
+                    <time class="published" datetime="2015-11-01">12/05/2023 12:40:30</time>
+                    <a href="#" class="author"><span class="name">Samuel Rodriguez</span></a>
                 </div>
-            </section>
-            <section>
-                <h3>Últimos comentarios realizados</h3>
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Nombre Usuario</th>
-                                <th>ID Publicación</th>
-                                <th>Mensaje</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- foreach -->
-                            <tr>
-                                <td>Samuel Rodriguez</td>
-                                <td>546</td>
-                                <td>No me gusta ese tipo de lenguaje</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            </article>
+
+            <!-- Post -->
+            <article class="post">
+                <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod
+                    placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non
+                    congue ullam corper. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta
+                    lectus vitae, ultricies congue gravida diam non fringilla.</p>
+                <div class="col-12">
+                    <ul class="actions">
+                        <li><input class="button large" type="submit" value="Mostrar publicación" /></li>
+                    </ul>
                 </div>
-            </section>
+                <footer>
+                    <ul class="stats">
+                        <li class="icon solid fa-heart"> 28</li>
+                        <li class="icon solid fa-comment"> 128</li>
+                    </ul>
+                </footer>
+                <div class="meta">
+                    <time class="published" datetime="2015-11-01">12/05/2023 12:40:30</time>
+                    <a href="#" class="author"><span class="name">Samuel Rodriguez</span></a>
+                </div>
+            </article>
         </div>
 
         <!-- Sidebar -->
         <section id="sidebar">
 
+            <!-- Intro -->
+            <section id="intro">
+                <header>
+                    <h2>Samuel Rodriguez Groba</h2>
+                    <p>Miembro/a desde 12/05/2023</p>
+                </header>
+                <div class="col-12">
+                    <ul class="actions">
+                        <li><input class="button large" type="submit" value="Editar perfil" /></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Posts List -->
             <section>
                 <ul class="posts">
                     <li>
                         <article>
                             <header>
-                                <h3><a href="/admin">Inicio</a></h3>
+                                <h3><a href="single.html">Amigo numero 1</a></h3>
+                                <time class="published" datetime="2015-10-20">@Amigonumero1</time>
                             </header>
                         </article>
                     </li>
                     <li>
                         <article>
                             <header>
-                                <h3><a href="/admin/usuarios">Gestionar usuarios</a></h3>
+                                <h3><a href="single.html">Amigo numero 2</a></h3>
+                                <time class="published" datetime="2015-10-15">@Amigonumero2</time>
                             </header>
                         </article>
                     </li>
                     <li>
                         <article>
                             <header>
-                                <h3><a href="/admin/publicaciones">Gestionar publicaciones</a></h3>
-                            </header>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h3><a href="/admin/comentarios">Gestionar comentarios</a></h3>
+                                <h3><a href="single.html">Amigo numero 3</a></h3>
+                                <time class="published" datetime="2015-10-10">@Amigonumero3</time>
                             </header>
                         </article>
                     </li>
@@ -205,11 +195,11 @@
     </div>
 
     <!-- Scripts -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/browser.min.js"></script>
-    <script src="js/breakpoints.min.js"></script>
-    <script src="js/util.js"></script>
-    <script src="js/main.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/browser.min.js"></script>
+    <script src="/js/breakpoints.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
 
 </body>
 

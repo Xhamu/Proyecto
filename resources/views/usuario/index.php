@@ -15,13 +15,13 @@
 
         <!-- Header -->
         <header id="header">
-            <h1><a href="/home">Studium</a></h1>
+            <h1><a href="/">Studium</a></h1>
             <nav class="links">
                 <ul>
-                    <li><a href="/admin">Administración</a></li>
+                    <li><a href="/admin">Panel de administración</a></li>
                     <li><a href="/usuario/id">Mi perfil</a></li>
-                    <li><a href="/usuario/id/publicaciones">Mis publicaciones</a></li>
                     <li><a href="/usuario/id/amistades">Mis amistades</a></li>
+                    <li><a href="/noticias">Últimas noticias</a></li>
                 </ul>
             </nav>
             <nav class="main">
@@ -55,8 +55,8 @@
                 <ul class="links">
                     <li>
                         <a href="#">
-                            <h3>Administración</h3>
-                            <p>Mostrar menú de administración</p>
+                            <h3>Panel de administración</h3>
+                            <p>Mostrar panel de administración</p>
                         </a>
                     </li>
                     <li>
@@ -67,14 +67,14 @@
                     </li>
                     <li>
                         <a href="#">
-                            <h3>Mis publicaciones</h3>
-                            <p>Mostrar mis publicaciones</p>
+                            <h3>Mis amistades</h3>
+                            <p>Mostrar mis amistades</p>
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            <h3>Mis amistades</h3>
-                            <p>Mostrar mis amistades</p>
+                            <h3>Últimas noticias</h3>
+                            <p>Mostrar las últimas noticias</p>
                         </a>
                     </li>
                 </ul>
@@ -93,6 +93,7 @@
                         <div class="col-12">
                             <ul class="actions">
                                 <li><input class="button large" type="submit" value="Publicar" /></li>
+                                <li><input class="button large" type="reset" value="Limpiar" /></li>
                             </ul>
                         </div>
                     </div>
@@ -100,6 +101,8 @@
             </section>
 
             <!-- Post -->
+            <h1>Últimas publicaciones</h1>
+
             <article class="post">
                 <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod
                     placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non
@@ -162,14 +165,10 @@
         <section id="sidebar">
 
             <!-- Intro -->
-            <section id="intro">
-                <header>
-                    <h2>Samuel Rodriguez Groba</h2>
-                    <p>Miembro/a desde 12/05/2023</p>
-                </header>
-            </section>
+
 
             <section>
+                <h1>Últimas noticias</h1>
                 <div class="mini-posts">
                     <!-- Mini Post -->
                     <article class="mini-post">
@@ -190,36 +189,6 @@
                     </article>
 
                 </div>
-            </section>
-
-            <!-- Posts List -->
-            <section>
-                <ul class="posts">
-                    <li>
-                        <article>
-                            <header>
-                                <h3><a href="single.html">Samuel Rodriguez</a></h3>
-                                <time class="published" datetime="2015-10-20">@xhamu</time>
-                            </header>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h3><a href="single.html">Samuel Rodriguez</a></h3>
-                                <time class="published" datetime="2015-10-15">@xhamu</time>
-                            </header>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h3><a href="single.html">Samuel Rodriguez</a></h3>
-                                <time class="published" datetime="2015-10-10">@xhamu</time>
-                            </header>
-                        </article>
-                    </li>
-                </ul>
             </section>
 
             <!-- Footer -->
