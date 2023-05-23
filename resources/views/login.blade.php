@@ -10,12 +10,21 @@
     <div class="container">
         <div class="screen">
             <div class="screen__content">
-                <form class="login" method="post" action="/login">
+                <form class="login" method="POST" action="{{ route('login.post') }}">
+                    @csrf
                     <div class="login__field">
-                        <input type="text" class="login__input" placeholder="Introduce tu email">
+                        <input type="email" name="email" id="email" value="{{ old('email') }}" required
+                            class="login__input" placeholder="Introduce tu email">
+                        @if ($errors->has('email'))
+                            <p style="color:red; font-size: 12px;">{{ $errors->first('email') }}</p>
+                        @endif
                     </div>
                     <div class="login__field">
-                        <input type="password" class="login__input" placeholder="Introduce tu contraseña">
+                        <input type="password" name="password" id="password" class="login__input"
+                            placeholder="Introduce tu contraseña">
+                        @if ($errors->has('password'))
+                            <p style="color:red; font-size: 12px;">{{ $errors->first('password') }}</p>
+                        @endif
                     </div>
                     <button class="button login__submit">
                         <span class="button__text">Iniciar sesión</span>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,23 +14,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Rutas públicas
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login'])->name('login.post');
+Route::get('/register', [LoginController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [LoginController::class, 'register'])->name('register.post');
 
-Route::get('/', function () {
-    return view('usuario.index');
+// Rutas para usuarios autenticados
+Route::middleware('auth')->group(function () {
+    Route::get('/inicio', function () {
+        return view('usuario.index');
+    });
+
+    Route::get('/usuario/{id}', function () {
+        return view('usuario.perfil');
+    });
+
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
-Route::get('/admin', function () {
-    return view('admin.index');
-});
-
-Route::get('/login', function () {
-    return view('login');
-});
-
-Route::get('/register', function () {
-    return view('register');
-});
-
-Route::get('/usuario/id', function () {
-    return view('usuario.perfil');
+// Rutas para el administrador (requiere autenticación y tener el rol de administrador)
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin', function () {
+        return view('admin.index');
+    });
 });

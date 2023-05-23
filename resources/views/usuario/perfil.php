@@ -54,25 +54,25 @@
             <section>
                 <ul class="links">
                     <li>
-                        <a href="#">
+                        <a href="/admin">
                             <h3>Panel de administración</h3>
                             <p>Mostrar panel de administración</p>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="/usuario/id">
                             <h3>Mi perfil</h3>
                             <p>Mostrar mi perfil</p>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="/usuario/id/amistades">
                             <h3>Mis amistades</h3>
                             <p>Mostrar mis amistades</p>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="/noticias">
                             <h3>Últimas noticias</h3>
                             <p>Mostrar las últimas noticias</p>
                         </a>
