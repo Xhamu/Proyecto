@@ -18,7 +18,9 @@
             <h1><a href="/">Studium</a></h1>
             <nav class="links">
                 <ul>
-                    <li><a href="/admin">Panel de administración</a></li>
+                    <?php if (auth()->user()->id_rol === 1) { ?>
+                        <li><a href="/admin">Panel de administración</a></li>
+                    <?php } ?>
                     <li><a href="/usuario/id">Mi perfil</a></li>
                     <li><a href="/usuario/id/amistades">Mis amistades</a></li>
                     <li><a href="/noticias">Últimas noticias</a></li>

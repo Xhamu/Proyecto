@@ -43,34 +43,32 @@ class LoginController extends Controller
     {
         return view('register');
     }
-
-    public function register()
+    public function register(Request $request)
     {
-        $data = request()->validate([
+        $this->validate($request, [
             'nombre' => 'required',
-            'username' => ['required', 'unique:users,username'],
-            'email' => ['required', 'email', 'unique:usuarios,email'],
+            'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
         ], [
             'nombre.required' => 'El campo es obligatorio.',
             'email.required' => 'El campo es obligatorio.',
-            'email.email' => 'Debe ser un formato válido.',
-            'email.unique' => 'Ya existe un usuario con ese email.',
-            'username.required' => 'El campo es obligatorio.',
-            'username.unique' => 'Ya existe un usuario con ese username.',
+            'email.email' => 'Debe ser un formato válido de correo electrónico.',
+            'email.unique' => 'Ya existe un usuario con ese correo electrónico.',
             'password.required' => 'El campo es obligatorio.',
             'password.min' => 'La contraseña debe tener al menos :min caracteres.',
         ]);
 
-        User::create([
-            'nombre' => $data['nombre'],
-            'username' => $data['username'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        $user = new User;
+        $user->nombre = $request->input('nombre');
+        $user->username = $request->input('username');
+        $user->email = $request->input('email');
+        $user->password = bcrypt($request->input('password'));
+        $user->id_rol = 1;
+        $user->save();
 
-        return redirect('/inicio');
+        return redirect('/login')->with('success', 'Registro exitoso. Ahora puedes iniciar sesión.');
     }
+
 
     public function logout(Request $request)
     {

@@ -15,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Rutas públicas
+
+$user = auth()->user();
+
+Route::get('/', function () {
+    return redirect()->route('login');
+});
+
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 Route::get('/register', [LoginController::class, 'showRegisterForm'])->name('register');
@@ -33,9 +40,22 @@ Route::middleware('auth')->group(function () {
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
-// Rutas para el administrador (requiere autenticación y tener el rol de administrador)
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/admin', function () {
-        return view('admin.index');
+        $user = auth()->user();
+
+        if ($user->id_rol === 1) {
+            return view('admin.index');
+        } else {
+            return redirect('/')->with('error', 'Acceso no autorizado');
+        }
     });
+});
+
+
+
+
+// Ruta para redireccionar al login si no está autenticado
+Route::fallback(function () {
+    return redirect()->route('login');
 });
