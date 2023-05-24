@@ -15,10 +15,12 @@
 
         <!-- Header -->
         <header id="header">
-            <h1><a href="/">Studium</a></h1>
+            <h1><a href="/inicio">Studium</a></h1>
             <nav class="links">
                 <ul>
-                    <li><a href="/admin">Panel de administración</a></li>
+                    <?php if (auth()->user()->id_rol === 1) { ?>
+                        <li><a href="/admin">Panel de administración</a></li>
+                    <?php } ?>
                     <li><a href="/usuario/id">Mi perfil</a></li>
                     <li><a href="/usuario/id/amistades">Mis amistades</a></li>
                     <li><a href="/noticias">Últimas noticias</a></li>
@@ -53,12 +55,14 @@
             <!-- Links -->
             <section>
                 <ul class="links">
-                    <li>
-                        <a href="/admin">
-                            <h3>Panel de administración</h3>
-                            <p>Mostrar panel de administración</p>
-                        </a>
-                    </li>
+                    <?php if (auth()->user()->id_rol === 1) { ?>
+                        <li>
+                            <a href="/admin">
+                                <h3>Panel de administración</h3>
+                                <p>Mostrar panel de administración</p>
+                            </a>
+                        </li>
+                    <?php } ?>
                     <li>
                         <a href="/usuario/id">
                             <h3>Mi perfil</h3>
@@ -85,7 +89,7 @@
         <!-- Main -->
         <div id="main">
             <!-- Post -->
-            <h1>Tus publicaciones</h1>
+            <h1>Publicaciones</h1>
             <article class="post">
                 <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod
                     placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non
@@ -138,12 +142,17 @@
             <!-- Intro -->
             <section id="intro">
                 <header>
-                    <h2>Samuel Rodriguez Groba</h2>
-                    <p>Miembro/a desde 12/05/2023</p>
+                    <h2><?php echo auth()->user()->nombre; ?></h2>
+                    <h3><?php echo '@' . auth()->user()->username; ?></h3>
+                    <p>Miembro/a desde <?php echo auth()->user()->created_at->format('m/Y'); ?></p>
                 </header>
                 <div class="col-12">
                     <ul class="actions">
-                        <li><input class="button large" type="submit" value="Editar perfil" /></li>
+                        <li>
+                            <a href="/usuario/<?php echo auth()->user()->id; ?>/editar" class="button large">
+                                <p>Editar perfil</p>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </section>

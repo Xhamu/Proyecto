@@ -63,7 +63,7 @@ class LoginController extends Controller
         $user->username = $request->input('username');
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('password'));
-        $user->id_rol = 1;
+        $user->id_rol = 2;
         $user->save();
 
         return redirect('/login')->with('success', 'Registro exitoso. Ahora puedes iniciar sesión.');

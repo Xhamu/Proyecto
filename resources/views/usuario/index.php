@@ -15,7 +15,7 @@
 
         <!-- Header -->
         <header id="header">
-            <h1><a href="/">Studium</a></h1>
+            <h1><a href="/inicio">Studium</a></h1>
             <nav class="links">
                 <ul>
                     <?php if (auth()->user()->id_rol === 1) { ?>
@@ -55,26 +55,28 @@
             <!-- Links -->
             <section>
                 <ul class="links">
+                    <?php if (auth()->user()->id_rol === 1) { ?>
+                        <li>
+                            <a href="/admin">
+                                <h3>Panel de administración</h3>
+                                <p>Mostrar panel de administración</p>
+                            </a>
+                        </li>
+                    <?php } ?>
                     <li>
-                        <a href="#">
-                            <h3>Panel de administración</h3>
-                            <p>Mostrar panel de administración</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
+                        <a href="/usuario/<?php echo auth()->user()->id; ?>">
                             <h3>Mi perfil</h3>
                             <p>Mostrar mi perfil</p>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="/usuario/<?php echo auth()->user()->id; ?>/amistades">
                             <h3>Mis amistades</h3>
                             <p>Mostrar mis amistades</p>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="/noticias">
                             <h3>Últimas noticias</h3>
                             <p>Mostrar las últimas noticias</p>
                         </a>
@@ -124,7 +126,7 @@
                 <footer>
                     <ul class="stats">
                         <li class="icon solid fa-heart"> 28</li>
-                        <li class="icon solid fa-comment"> 128</li>
+                        <li class="icon solid fa-comment" type="submit"> 128</li>
                     </ul>
                 </footer>
                 <div class="meta">
@@ -167,7 +169,12 @@
         <section id="sidebar">
 
             <!-- Intro -->
-
+            <section id="intro">
+                <header>
+                    <h3>Bienvenido/a a Studium;</h3>
+                    <h3><?php echo '@' . auth()->user()->username; ?></h3>
+                </header>
+            </section>
 
             <section>
                 <h1>Últimas noticias</h1>

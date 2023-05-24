@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +38,23 @@ Route::middleware('auth')->group(function () {
         return view('usuario.perfil');
     });
 
+    Route::get('/usuario/{id}/amistades', function () {
+        return view('usuario.amistades');
+    });
+
+    Route::get('/usuario/{id}/editar', function () {
+        return view('usuario.amistades');
+    });
+
+
+    Route::post('/publicar', function () {
+        return redirect()->back();
+    });
+
+    Route::get('/noticias', function () {
+        return view('noticias');
+    });
+
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
@@ -47,9 +65,12 @@ Route::middleware(['auth'])->group(function () {
         if ($user->id_rol === 1) {
             return view('admin.index');
         } else {
-            return redirect('/')->with('error', 'Acceso no autorizado');
+            return redirect()->back()->with('error', 'Acceso no autorizado');
         }
     });
+
+
+    Route::get('/admin/usuarios', [UserController::class, 'index'])->name('admin.usuarios');
 });
 
 
@@ -57,5 +78,5 @@ Route::middleware(['auth'])->group(function () {
 
 // Ruta para redireccionar al login si no está autenticado
 Route::fallback(function () {
-    return redirect()->route('login');
+    return redirect()->back();
 });
