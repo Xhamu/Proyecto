@@ -88,7 +88,7 @@
                     <div class="row gtr-uniform">
                         <div class="col-12">
                             <textarea style="resize: none;" name="demo-message" id="demo-message" placeholder="¿Qué tal tus exámenes?"
-                                rows="3"></textarea>
+                                rows="5"></textarea>
                         </div>
                         <div class="col-12">
                             <ul class="actions">
@@ -124,8 +124,9 @@
                     </ul>
                 </footer>
                 <div class="meta">
-                    <time class="published" datetime="2015-11-01"><?php echo $p->created_at->format('d/m/Y'); ?></time>
-                    <a href="#" class="author"><span class="name">Samuel Rodriguez</span></a>
+                    <time class="published"><?php echo $p->created_at->format('d/m/Y'); ?></time>
+                    <a href="/usuario/<?php echo $p->usuario->id; ?>" class="author"><span
+                            class="name"><?php echo $p->usuario->nombre . ' (@' . $p->usuario->username . ')'; ?></span></a>
                 </div>
             </article>
             <?php } ?>

@@ -31,7 +31,7 @@ Route::post('/register', [LoginController::class, 'register'])->name('register.p
 
 // Rutas para usuarios autenticados
 Route::middleware('auth')->group(function () {
-    Route::get('/inicio', [PublicacionController::class, 'showPublications'])->name('publicaciones.index');
+    Route::get('/inicio', [HomeController::class, 'showInicio'])->name('usuario.index');
 
     Route::get('/usuario/{id}', function () {
         return view('usuario.perfil');
