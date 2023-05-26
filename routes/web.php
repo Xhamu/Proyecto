@@ -31,9 +31,7 @@ Route::post('/register', [LoginController::class, 'register'])->name('register.p
 
 // Rutas para usuarios autenticados
 Route::middleware('auth')->group(function () {
-    Route::get('/inicio', function () {
-        return view('usuario.index');
-    });
+    Route::get('/inicio', [PublicacionController::class, 'showPublications'])->name('publicaciones.index');
 
     Route::get('/usuario/{id}', function () {
         return view('usuario.perfil');
@@ -47,10 +45,7 @@ Route::middleware('auth')->group(function () {
         return view('usuario.amistades');
     });
 
-
-    Route::post('/publicar', function () {
-        return redirect()->back();
-    });
+    Route::post('/publicar', [PublicacionController::class, 'publicar'])->name('publicaciones.publicar');
 
     Route::get('/noticias', function () {
         return view('noticias');

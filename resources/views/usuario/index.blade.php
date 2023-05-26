@@ -19,7 +19,7 @@
             <nav class="links">
                 <ul>
                     <?php if (auth()->user()->id_rol === 1) { ?>
-                        <li><a href="/admin">Panel de administración</a></li>
+                    <li><a href="/admin">Panel de administración</a></li>
                     <?php } ?>
                     <li><a href="/usuario/<?php echo auth()->user()->id; ?>">Mi perfil</a></li>
                     <li><a href="/usuario/<?php echo auth()->user()->id; ?>/amistades">Mis amistades</a></li>
@@ -50,12 +50,12 @@
             <section>
                 <ul class="links">
                     <?php if (auth()->user()->id_rol === 1) { ?>
-                        <li>
-                            <a href="/admin">
-                                <h3>Panel de administración</h3>
-                                <p>Mostrar panel de administración</p>
-                            </a>
-                        </li>
+                    <li>
+                        <a href="/admin">
+                            <h3>Panel de administración</h3>
+                            <p>Mostrar panel de administración</p>
+                        </a>
+                    </li>
                     <?php } ?>
                     <li>
                         <a href="/usuario/<?php echo auth()->user()->id; ?>">
@@ -84,14 +84,16 @@
         <div id="main">
             <section>
                 <form method="post" action="/publicar">
+                    @csrf
                     <div class="row gtr-uniform">
                         <div class="col-12">
-                            <textarea style="resize: none;" name="demo-message" id="demo-message" placeholder="¿Qué tal tus exámenes?" rows="6"></textarea>
+                            <textarea style="resize: none;" name="demo-message" id="demo-message" placeholder="¿Qué tal tus exámenes?"
+                                rows="3"></textarea>
                         </div>
                         <div class="col-12">
                             <ul class="actions">
-                                <li><input class="button large" type="submit" value="Publicar" /></li>
-                                <li><input class="button large" type="reset" value="Limpiar" /></li>
+                                <li><button class="button large" type="submit" value="Publicar">Publicar</button></li>
+                                <li><button class="button large" type="reset" value="Limpiar">Limpiar</button></li>
                             </ul>
                         </div>
                     </div>
@@ -100,21 +102,19 @@
 
             <!-- Post -->
             <h1>Últimas publicaciones</h1>
-
+            <?php foreach ($publicaciones as $p) { ?>
             <article class="post">
-                <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod
-                    placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non
-                    congue ullam corper. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta
-                    lectus vitae, ultricies congue gravida diam non fringilla.</p>
+                <p><?php echo $p->contenido; ?></p>
                 <div class="col-12">
                     <ul class="actions">
-                        <li><input type="submit" value="Me gusta" /></li>
-                        <li><input type="submit" value="Comentar" /></li>
+                        <li><button type="submit" value="Me gusta">Me gusta</button></li>
+                        <li><button type="submit" value="Comentar">Comentar</button></li>
                     </ul>
                 </div>
                 <div class="col-12">
                     <ul class="actions">
-                        <li><input class="button large" type="submit" value="Mostrar publicación" /></li>
+                        <li><button class="button large" type="submit" value="Mostrar publicación">Mostrar
+                                publicación</button></li>
                     </ul>
                 </div>
                 <footer>
@@ -124,39 +124,11 @@
                     </ul>
                 </footer>
                 <div class="meta">
-                    <time class="published" datetime="2015-11-01">12/05/2023 12:40:30</time>
+                    <time class="published" datetime="2015-11-01"><?php echo $p->created_at->format('d/m/Y'); ?></time>
                     <a href="#" class="author"><span class="name">Samuel Rodriguez</span></a>
                 </div>
             </article>
-
-            <!-- Post -->
-            <article class="post">
-                <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod
-                    placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non
-                    congue ullam corper. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta
-                    lectus vitae, ultricies congue gravida diam non fringilla.</p>
-                <div class="col-12">
-                    <ul class="actions">
-                        <li><input type="submit" value="Me gusta" /></li>
-                        <li><input type="submit" value="Comentar" /></li>
-                    </ul>
-                </div>
-                <div class="col-12">
-                    <ul class="actions">
-                        <li><input class="button large" type="submit" value="Mostrar publicación" /></li>
-                    </ul>
-                </div>
-                <footer>
-                    <ul class="stats">
-                        <li class="icon solid fa-heart"> 28</li>
-                        <li class="icon solid fa-comment"> 128</li>
-                    </ul>
-                </footer>
-                <div class="meta">
-                    <time class="published" datetime="2015-11-01">12/05/2023 12:40:30</time>
-                    <a href="#" class="author"><span class="name">Samuel Rodriguez</span></a>
-                </div>
-            </article>
+            <?php } ?>
         </div>
 
         <!-- Sidebar -->
@@ -198,8 +170,10 @@
             <section id="footer">
                 <ul class="icons">
                     <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-                    <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-                    <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+                    <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a>
+                    </li>
+                    <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a>
+                    </li>
                     <li><a href="#" class="icon solid fa-rss"><span class="label">RSS</span></a></li>
                     <li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
                 </ul>
