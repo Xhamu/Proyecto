@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Mi perfil - Studium</title>
+    <title>Administración | Publicaciones - Studium</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link href="/css/main.css" rel="stylesheet">
@@ -10,6 +10,17 @@
 
 <body class="is-preload">
 
+    <?php if (session('success')) { ?>
+        <div class="col-lg-12 col-6 alert alert-success">
+            <?php echo session('success'); ?>
+        </div>
+    <?php } ?>
+
+    <?php if (session('error')) { ?>
+        <div class="col-lg-12 col-6 alert alert-damger">
+            <?php echo session('error'); ?>
+        </div>
+    <?php } ?>
     <!-- Wrapper -->
     <div id="wrapper">
 
@@ -42,7 +53,7 @@
             <!-- Search -->
             <section>
                 <form class="search" method="get" action="#">
-                    <input type="text" name="query" placeholder="Search" />
+                    <input type="text" name="query" placeholder="Buscar" />
                 </form>
             </section>
 
@@ -82,99 +93,69 @@
 
         <!-- Main -->
         <div id="main">
-            <!-- Post -->
-            <h1>Publicaciones</h1>
-            <article class="post">
-                <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod
-                    placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non
-                    congue ullam corper. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta
-                    lectus vitae, ultricies congue gravida diam non fringilla.</p>
-                <div class="col-12">
-                    <ul class="actions">
-                        <li><input class="button large" type="submit" value="Mostrar publicación" /></li>
-                    </ul>
+            <section>
+                <h3><?php echo $titulo; ?></h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Contenido</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($publicaciones as $p) { ?>
+                                <tr>
+                                    <td><?php echo $p->usuario->nombre; ?></td>
+                                    <td><?php echo $p->usuario->email; ?></td>
+                                    <td><?php echo $p->contenido; ?></td>
+                                    <td>
+                                        <a href="/admin/publicacion/<?php echo $p->id; ?>" class="button medium">Mostrar</a>
+                                        <a href="/admin/publicacion/<?php echo $p->id; ?>/editar" class="button medium">Editar</a>
+                                        <form action="/admin/publicacion/<?php echo $p->id; ?>/borrar" method="POST" style="display: inline-block;">
+                                            <button type="submit" class="button medium" onclick="return confirm('¿Está seguro de eliminar la publicación <?php echo $p->contenido . ' | de: ' . $p->usuario->email; ?>?')">Borrar</i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
                 </div>
-                <footer>
-                    <ul class="stats">
-                        <li class="icon solid fa-heart"> 28</li>
-                        <li class="icon solid fa-comment"> 128</li>
-                    </ul>
-                </footer>
-                <div class="meta">
-                    <time class="published" datetime="2015-11-01">12/05/2023 12:40:30</time>
-                    <a href="#" class="author"><span class="name">Samuel Rodriguez</span></a>
-                </div>
-            </article>
-
-            <!-- Post -->
-            <article class="post">
-                <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod
-                    placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non
-                    congue ullam corper. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta
-                    lectus vitae, ultricies congue gravida diam non fringilla.</p>
-                <div class="col-12">
-                    <ul class="actions">
-                        <li><input class="button large" type="submit" value="Mostrar publicación" /></li>
-                    </ul>
-                </div>
-                <footer>
-                    <ul class="stats">
-                        <li class="icon solid fa-heart"> 28</li>
-                        <li class="icon solid fa-comment"> 128</li>
-                    </ul>
-                </footer>
-                <div class="meta">
-                    <time class="published" datetime="2015-11-01">12/05/2023 12:40:30</time>
-                    <a href="#" class="author"><span class="name">Samuel Rodriguez</span></a>
-                </div>
-            </article>
+            </section>
         </div>
 
         <!-- Sidebar -->
         <section id="sidebar">
 
-            <!-- Intro -->
-            <section id="intro">
-                <header>
-                    <h2><?php echo auth()->user()->nombre; ?></h2>
-                    <h3><?php echo '@' . auth()->user()->username; ?></h3>
-                    <p>Miembro/a desde <?php echo auth()->user()->created_at->format('m/Y'); ?></p>
-                </header>
-                <div class="col-12">
-                    <ul class="actions">
-                        <li>
-                            <a href="/usuario/<?php echo auth()->user()->id; ?>/editar" class="button large">
-                                <p>Editar perfil</p>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- Posts List -->
             <section>
                 <ul class="posts">
                     <li>
                         <article>
                             <header>
-                                <h3><a href="single.html">Amigo numero 1</a></h3>
-                                <time class="published" datetime="2015-10-20">@Amigonumero1</time>
+                                <h3><a href="/admin">Inicio</a></h3>
                             </header>
                         </article>
                     </li>
                     <li>
                         <article>
                             <header>
-                                <h3><a href="single.html">Amigo numero 2</a></h3>
-                                <time class="published" datetime="2015-10-15">@Amigonumero2</time>
+                                <h3><a href="/admin/usuarios">Gestionar usuarios</a></h3>
                             </header>
                         </article>
                     </li>
                     <li>
                         <article>
                             <header>
-                                <h3><a href="single.html">Amigo numero 3</a></h3>
-                                <time class="published" datetime="2015-10-10">@Amigonumero3</time>
+                                <h3><a href="/admin/publicaciones">Gestionar publicaciones</a></h3>
+                            </header>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/admin/comentarios">Gestionar comentarios</a></h3>
                             </header>
                         </article>
                     </li>

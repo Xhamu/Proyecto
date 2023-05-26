@@ -29,7 +29,6 @@ class AdminIndexController extends Controller
             ->limit(10)
             ->get();
 
-
         return view('admin.index', compact('usuarios', 'publicaciones', 'comentarios'));
     }
 }

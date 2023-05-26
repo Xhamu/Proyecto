@@ -23,7 +23,7 @@ class UserController extends Controller
                 return $query->where('users.email', 'like', '%' . $request->query('email') . '%');
             })
             ->when($request->has('profesion'), function ($query) use ($request) {
-                return $query->whereIn('users.id_profesion', $request->query('profesion'));
+                return $query->whereIn('users.id_rol', $request->query('rol'));
             })
             ->when($sort, function ($query) use ($sort) {
                 $column = ltrim($sort, '-');

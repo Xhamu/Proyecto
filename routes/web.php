@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\AdminIndexController;
+use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PublicacionController;
 use App\Http\Controllers\UserController;
+use App\Models\Publicacion;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,6 +63,9 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', [AdminIndexController::class, 'index'])->name('admin.index');
     Route::get('/admin/usuarios', [UserController::class, 'index'])->name('admin.usuarios');
+    Route::get('/admin/publicaciones', [PublicacionController::class, 'index'])->name('admin.publicaciones');
+    Route::get('/admin/comentarios', [ComentarioController::class, 'index'])->name('admin.comentarios');
+    Route::get('/admin/noticias', [NoticiaController::class, 'index'])->name('admin.noticias');
 });
 
 // Ruta para redireccionar al login si no está autenticado

@@ -21,20 +21,14 @@
                     <?php if (auth()->user()->id_rol === 1) { ?>
                         <li><a href="/admin">Panel de administración</a></li>
                     <?php } ?>
-                    <li><a href="/usuario/id">Mi perfil</a></li>
-                    <li><a href="/usuario/id/amistades">Mis amistades</a></li>
+                    <li><a href="/usuario/<?php echo auth()->user()->id; ?>">Mi perfil</a></li>
+                    <li><a href="/usuario/<?php echo auth()->user()->id; ?>/amistades">Mis amistades</a></li>
                     <li><a href="/noticias">Últimas noticias</a></li>
                 </ul>
             </nav>
             <nav class="main">
                 <ul>
                     <li><a class="fa-door-open" style="color:red;" href="/logout">Cerrar sesión</a></li>
-                    <li class="search">
-                        <a class="fa-search" href="#search">Búsqueda</a>
-                        <form id="search" method="get" action="#">
-                            <input type="text" name="query" placeholder="Search" />
-                        </form>
-                    </li>
                     <li class="menu">
                         <a class="fa-bars" href="#menu">Menu</a>
                     </li>

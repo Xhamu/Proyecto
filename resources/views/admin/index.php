@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Home - Studium</title>
+    <title>Panel de Administración - Studium</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link href="css/main.css" rel="stylesheet">
@@ -15,24 +15,20 @@
 
         <!-- Header -->
         <header id="header">
-            <h1><a href="/">Studium</a></h1>
+            <h1><a href="/inicio">Studium</a></h1>
             <nav class="links">
                 <ul>
-                    <li><a href="/admin">Panel de administración</a></li>
-                    <li><a href="/usuario/id">Mi perfil</a></li>
-                    <li><a href="/usuario/id/amistades">Mis amistades</a></li>
+                    <?php if (auth()->user()->id_rol === 1) { ?>
+                        <li><a href="/admin">Panel de administración</a></li>
+                    <?php } ?>
+                    <li><a href="/usuario/<?php echo auth()->user()->id; ?>">Mi perfil</a></li>
+                    <li><a href="/usuario/<?php echo auth()->user()->id; ?>/amistades">Mis amistades</a></li>
                     <li><a href="/noticias">Últimas noticias</a></li>
                 </ul>
             </nav>
             <nav class="main">
                 <ul>
                     <li><a class="fa-door-open" style="color:red;" href="/logout">Cerrar sesión</a></li>
-                    <li class="search">
-                        <a class="fa-search" href="#search">Búsqueda</a>
-                        <form id="search" method="get" action="#">
-                            <input type="text" name="query" placeholder="Search" />
-                        </form>
-                    </li>
                     <li class="menu">
                         <a class="fa-bars" href="#menu">Menu</a>
                     </li>
@@ -53,20 +49,22 @@
             <!-- Links -->
             <section>
                 <ul class="links">
+                    <?php if (auth()->user()->id_rol === 1) { ?>
+                        <li>
+                            <a href="/admin">
+                                <h3>Panel de administración</h3>
+                                <p>Mostrar panel de administración</p>
+                            </a>
+                        </li>
+                    <?php } ?>
                     <li>
-                        <a href="/admin">
-                            <h3>Panel de administración</h3>
-                            <p>Mostrar panel de administración</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/usuario/id">
+                        <a href="/usuario/<?php echo auth()->user()->id; ?>">
                             <h3>Mi perfil</h3>
                             <p>Mostrar mi perfil</p>
                         </a>
                     </li>
                     <li>
-                        <a href="/usuario/id/amistades">
+                        <a href="/usuario/<?php echo auth()->user()->id; ?>/amistades">
                             <h3>Mis amistades</h3>
                             <p>Mostrar mis amistades</p>
                         </a>
