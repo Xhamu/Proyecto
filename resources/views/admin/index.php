@@ -96,12 +96,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- foreach -->
-                            <tr>
-                                <td>Samuel Rodriguez</td>
-                                <td>xhamu</td>
-                                <td>samuelgeminis5@gmail.com</td>
-                            </tr>
+                            <?php foreach ($usuarios as $u) { ?>
+                                <tr>
+                                    <td><?php echo $u->nombre; ?></td>
+                                    <td><?php echo $u->username; ?></td>
+                                    <td><?php echo $u->email; ?></td>
+                                </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>
@@ -112,18 +113,19 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Nombre Usuario</th>
-                                <th>Email Usuario</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
                                 <th>Mensaje</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- foreach -->
-                            <tr>
-                                <td>Samuel Rodriguez</td>
-                                <td>samuelgeminis5@gmail.com</td>
-                                <td>¡Que bonito es estudiar!</td>
-                            </tr>
+                            <?php foreach ($publicaciones as $p) { ?>
+                                <tr>
+                                    <td><?php echo $p->usuario->nombre; ?></td>
+                                    <td><?php echo $p->usuario->email; ?></td>
+                                    <td><?php echo $p->contenido; ?></td>
+                                </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>
@@ -134,18 +136,21 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Nombre Usuario</th>
-                                <th>ID Publicación</th>
-                                <th>Mensaje</th>
+                                <th>Nombre</th>
+                                <th>Publicacion (ID)</th>
+                                <th>Publicación (Mensaje)</th>
+                                <th>Comentario (Mensaje)</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- foreach -->
-                            <tr>
-                                <td>Samuel Rodriguez</td>
-                                <td>546</td>
-                                <td>No me gusta ese tipo de lenguaje</td>
-                            </tr>
+                            <?php foreach ($comentarios as $c) { ?>
+                                <tr>
+                                    <td><?php echo $c->usuario->nombre; ?></td>
+                                    <td><?php echo $c->publicacion->id; ?></td>
+                                    <td><?php echo $c->publicacion->contenido; ?></td>
+                                    <td><?php echo $c->contenido; ?></td>
+                                </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>

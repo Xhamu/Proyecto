@@ -44,7 +44,7 @@ class UserController extends Controller
     {
         $roles = Rol::all();
 
-        return view('usuarios.crear', compact('roles'));
+        return view('admin.usuarios-crear', compact('roles'));
     }
 
     public function mostrar($id)
@@ -59,7 +59,7 @@ class UserController extends Controller
 
         $roleName = $usuario->roles->pluck('name')->implode(', ');
 
-        return view('usuarios.mostrar', compact('usuario', 'roleName'));
+        return view('admin.usuarios-mostrar', compact('usuario', 'roleName'));
     }
 
     public function add()
@@ -88,14 +88,13 @@ class UserController extends Controller
         $user = User::create([
             'nombre' => $data['nombre'],
             'email' => $data['email'],
-            'fecha' => $data['fecha'],
-            'id_profesion' => (int) $data['id_profesion'],
+            'username' => $data['username'],
             'password' => bcrypt($data['password']),
         ]);
 
         $user->assignRole($data['roles']);
 
-        return redirect()->route('usuarios.index');
+        return redirect()->route('admin.usuarios');
     }
 
     public function editar($id)
@@ -108,16 +107,14 @@ class UserController extends Controller
             return view('errores.404');
         }
 
-        $profesiones = Profesion::all();
+        $roles = Rol::all();
 
-        $roles = Role::all();
-
-        return view('usuarios.editar', compact('titulo', 'usuario', 'profesiones', 'roles'));
+        return view('admin.usuarios-editar', compact('titulo', 'usuario', 'profesiones', 'roles'));
     }
 
     public function update($id)
     {
-        $usuario = Usuario::find($id);
+        $usuario = User::find($id);
 
         if (is_null($usuario)) {
             return view('errores.404');
@@ -125,9 +122,8 @@ class UserController extends Controller
 
         $data = request()->validate([
             'nombre' => 'required',
-            'email' => ['required', 'email', Rule::unique('usuarios')->ignore($usuario->id)],
-            'fecha' => 'required|date',
-            'id_profesion' => 'required|exists:profesions,id',
+            'email' => ['required|email|unique:users,email'],
+            'username' => ['required|email|unique:users,username'],
             'password' => 'nullable|min:6',
             'roles' => 'required',
         ], [
@@ -155,14 +151,12 @@ class UserController extends Controller
 
         $usuario->update($data);
 
-        return redirect()->route('usuarios.index');
+        return redirect()->route('admin.usuarios');
     }
 
     public function delete($id)
     {
-        $this->authorize('delete', Usuario::class);
-
-        $usuario = Usuario::find($id);
+        $usuario = User::find($id);
 
         if (is_null($usuario)) {
             return view('errores.404');
@@ -176,6 +170,6 @@ class UserController extends Controller
             $status = 'error';
         }
 
-        return redirect()->route('usuarios.index')->with($status, $mensaje);
+        return redirect()->route('admin.usuarios')->with($status, $mensaje);
     }
 }

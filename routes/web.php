@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminIndexController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -16,9 +17,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Rutas públicas
-
-$user = auth()->user();
-
 Route::get('/', function () {
     return redirect()->route('login');
 });
@@ -58,23 +56,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/admin', function () {
-        $user = auth()->user();
-
-        if ($user->id_rol === 1) {
-            return view('admin.index');
-        } else {
-            return redirect()->back()->with('error', 'Acceso no autorizado');
-        }
-    });
-
-
+//Rutas usuarios rol admin
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin', [AdminIndexController::class, 'index'])->name('admin.index');
     Route::get('/admin/usuarios', [UserController::class, 'index'])->name('admin.usuarios');
 });
-
-
-
 
 // Ruta para redireccionar al login si no está autenticado
 Route::fallback(function () {
