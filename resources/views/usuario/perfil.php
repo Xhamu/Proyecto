@@ -151,9 +151,9 @@
                 </div>
             </section>
 
-            <!-- Posts List -->
             <section>
                 <ul class="posts">
+                    <h3>Sugerencias de amistad</h3>
                     <li>
                         <article>
                             <header>

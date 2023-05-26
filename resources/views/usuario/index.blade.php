@@ -107,7 +107,7 @@
                 <p><?php echo $p->contenido; ?></p>
                 <div class="col-12">
                     <ul class="actions">
-                        <li><a href="/publicacion/<?php echo $p->id; ?>" class="button large">Ver publicación</a>
+                        <li><a href="/publicacion/<?php echo $p->id; ?>" class="button medium">Ver publicación</a>
                         </li>
                     </ul>
                 </div>
@@ -117,7 +117,7 @@
                         $likedByUser = $p->likes->contains('user_id', auth()->user()->id);
                         $estilo = $likedByUser ? 'red' : '';
                         ?>
-                        <li class="icon solid fa-heart" style="color: <?php echo $estilo; ?>"> <?php echo $p->likes_count; ?></li>
+                        <li class="icon solid fa-heart" style="color: <?php echo $estilo; ?>;"> <?php echo $p->likes_count; ?></li>
                         <li class="icon solid fa-comment" type="submit"> <?php echo $p->comentarios_count; ?></li>
                     </ul>
                 </footer>

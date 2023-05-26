@@ -7,7 +7,7 @@
 <html>
 
 <head>
-    <title>Noticias - Studium</title>
+    <title>Mostrar publicación - Studium</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="/css/main.css" />
@@ -89,6 +89,13 @@
         <!-- Main -->
         <div id="main">
 
+            <div class="col-12">
+                <ul class="actions">
+                    <li><a href="/inicio" class="button medium">Volver al inicio</a>
+                    </li>
+                </ul>
+            </div>
+
             <?php foreach ($publicaciones as $p) { ?>
                 <article class="post">
                     <header>
@@ -107,8 +114,11 @@
                             <?php
                             $likedByUser = $p->likes->contains('user_id', auth()->user()->id);
                             $estilo = $likedByUser ? 'red' : '';
-                            ?>
-                            <li><a href="/like/<?php echo $p->id; ?>" class="icon solid fa-heart" style="color: <?php echo $estilo; ?>"> <?php echo $p->likes_count; ?></a></li>
+                            if ($likedByUser) { ?>
+                                <li class="icon solid fa-heart" style="color: <?php echo $estilo; ?>;"> <?php echo $p->likes_count; ?></li>
+                            <?php } else { ?>
+                                <li><a href="/like/<?php echo $p->id; ?>" class="icon solid fa-heart"> <?php echo $p->likes_count; ?></a></li>
+                            <?php } ?>
                             <li><a href="/comentar/<?php echo $p->id; ?>" class="icon solid fa-comment"> <?php echo $p->comentarios_count; ?></a></li>
                         </ul>
                     </footer>
