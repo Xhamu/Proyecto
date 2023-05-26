@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminIndexController;
 use App\Http\Controllers\ComentarioController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PublicacionController;
 use App\Http\Controllers\UserController;

@@ -146,24 +146,16 @@
             <section>
                 <h1>Últimas noticias</h1>
                 <div class="mini-posts">
-                    <!-- Mini Post -->
+                    <?php foreach($noticias as $n) { ?>
                     <article class="mini-post">
                         <header>
-                            <h3><a href="single.html">Noticia 1</a></h3>
-                            <time class="published" datetime="2015-10-20">October 20, 2015</time>
+                            <h3><a href="/noticias/<?php echo $n->id; ?>"><?php echo $n->titulo; ?></a></h3>
+                            <time class="published" datetime="2015-10-20"><?php echo $n->created_at->format('d/m/Y'); ?></time>
                         </header>
-                        <a href="single.html" class="image"><img src="images/logo.png" alt="" /></a>
+                        <a href="/noticias/<?php echo $n->id; ?>" class="image"><img src="images/logo.png"
+                                alt="Noticia - <?php echo $n->titulo; ?>" /></a>
                     </article>
-
-                    <!-- Mini Post -->
-                    <article class="mini-post">
-                        <header>
-                            <h3><a href="single.html">Noticia 2</a></h3>
-                            <time class="published" datetime="2015-10-19">October 19, 2015</time>
-                        </header>
-                        <a href="single.html" class="image"><img src="images/logo.png" alt="" /></a>
-                    </article>
-
+                    <?php } ?>
                 </div>
             </section>
 

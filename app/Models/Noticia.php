@@ -9,6 +9,6 @@ class Noticia extends Model
 {
     use HasFactory;
 
-    protected $table = 'comentarios';
-    protected $fillable = ['contenido', 'user_id', 'publicacion_id'];
+    protected $table = 'noticias';
+    protected $fillable = ['titulo', 'subtitulo', 'contenido'];
 }

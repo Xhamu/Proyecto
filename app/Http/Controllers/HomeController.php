@@ -7,7 +7,7 @@ use App\Models\Publicacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class PublicacionController extends Controller
+class HomeController extends Controller
 {
 
     public function showInicio()
@@ -31,8 +31,9 @@ class PublicacionController extends Controller
         //Noticias
         $noticias = Noticia::select('noticias.*')
             ->latest('id')
+            ->limit(5)
             ->get();
 
-        return view('usuarios.index', compact('publicaciones', 'noticias'));
+        return view('usuario.index', compact('publicaciones', 'noticias'));
     }
 }
