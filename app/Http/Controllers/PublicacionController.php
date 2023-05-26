@@ -22,4 +22,17 @@ class PublicacionController extends Controller
 
         return view('admin.publicaciones', compact('titulo', 'publicaciones', 'usuarioActual'));
     }
+
+
+    public function showPublicacion($id_publicacion)
+    {
+
+        $publicaciones = Publicacion::select('publicaciones.*')
+            ->with('usuario')
+            ->where('id', $id_publicacion)
+            ->withCount('likes', 'comentarios')
+            ->get();
+
+        return view('usuario.publicacion', compact('publicaciones'));
+    }
 }

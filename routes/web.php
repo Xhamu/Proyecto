@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminIndexController;
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\NoticiaController;
 use App\Http\Controllers\PublicacionController;
 use App\Http\Controllers\UserController;
 use App\Models\Publicacion;
@@ -48,11 +49,11 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/publicar', [HomeController::class, 'publicar'])->name('publicaciones.publicar');
 
+    Route::get('/publicacion/{id}', [PublicacionController::class, 'showPublicacion'])->name('publicaciones.show');
+
     Route::get('/like/{id}', [HomeController::class, 'likear'])->name('publicaciones.likear');
 
-    Route::get('/noticias', function () {
-        return view('noticias');
-    });
+    Route::get('/noticias', [NoticiaController::class, 'index'])->name('usuario.noticias');
 
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 });
