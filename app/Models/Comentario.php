@@ -21,4 +21,9 @@ class Comentario extends Model
     {
         return $this->belongsTo(Publicacion::class, 'publicacion_id');
     }
+
+    public function getNumeroComentariosAttribute()
+    {
+        return $this->comentarios()->count();
+    }
 }

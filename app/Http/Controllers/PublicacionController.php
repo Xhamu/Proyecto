@@ -22,22 +22,4 @@ class PublicacionController extends Controller
 
         return view('admin.publicaciones', compact('titulo', 'publicaciones', 'usuarioActual'));
     }
-
-
-
-    public function publicar(Request $request)
-    {
-        $request->validate([
-            'demo-message' => 'required|max:255',
-        ]);
-
-        $user = auth()->user();
-
-        $publicacion = new Publicacion();
-        $publicacion->contenido = $request->input('demo-message');
-        $publicacion->user_id = $user->id;
-        $publicacion->save();
-
-        return redirect()->back()->with('success', 'Publicación creada exitosamente.');
-    }
 }

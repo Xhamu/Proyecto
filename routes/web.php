@@ -46,7 +46,9 @@ Route::middleware('auth')->group(function () {
         return view('usuario.amistades');
     });
 
-    Route::post('/publicar', [PublicacionController::class, 'publicar'])->name('publicaciones.publicar');
+    Route::post('/publicar', [HomeController::class, 'publicar'])->name('publicaciones.publicar');
+
+    Route::get('/like/{id}', [HomeController::class, 'likear'])->name('publicaciones.likear');
 
     Route::get('/noticias', function () {
         return view('noticias');

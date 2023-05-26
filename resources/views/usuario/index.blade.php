@@ -107,20 +107,25 @@
                 <p><?php echo $p->contenido; ?></p>
                 <div class="col-12">
                     <ul class="actions">
-                        <li><button type="submit" value="Me gusta">Me gusta</button></li>
-                        <li><button type="submit" value="Comentar">Comentar</button></li>
+                        <?php
+                        $likedByUser = $p->likes->contains('user_id', auth()->user()->id);
+        
+                        if(!$likedByUser) { ?>
+                        <li><a href="/like/<?php echo $p->id; ?>" class="button large">Me gusta</a></li>
+                        <?php } ?>
+                        <li><a href="/comentar/<?php echo $p->id; ?>" class="button large">Comentar</a></li>
                     </ul>
                 </div>
                 <div class="col-12">
                     <ul class="actions">
-                        <li><button class="button large" type="submit" value="Mostrar publicación">Mostrar
-                                publicación</button></li>
+                        <li><a href="/publicacion/<?php echo $p->id; ?>" class="button large">Mostrar publicación</a>
+                        </li>
                     </ul>
                 </div>
                 <footer>
                     <ul class="stats">
-                        <li class="icon solid fa-heart"> 28</li>
-                        <li class="icon solid fa-comment" type="submit"> 128</li>
+                        <li class="icon solid fa-heart"> <?php echo $p->likes_count; ?></li>
+                        <li class="icon solid fa-comment" type="submit"> <?php echo $p->comentarios_count; ?></li>
                     </ul>
                 </footer>
                 <div class="meta">
