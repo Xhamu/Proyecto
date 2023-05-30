@@ -63,7 +63,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/usuarios', [UserController::class, 'index'])->name('admin.usuarios');
     Route::get('/admin/publicaciones', [PublicacionController::class, 'index'])->name('admin.publicaciones');
     Route::get('/admin/comentarios', [ComentarioController::class, 'index'])->name('admin.comentarios');
-    Route::get('/admin/noticias', [NoticiaController::class, 'index'])->name('admin.noticias');
+    Route::get('/admin/noticias', [NoticiaController::class, 'adminIndex'])->name('admin.noticias');
+    Route::get('/admin/noticias/añadir', [NoticiaController::class, 'addForm'])->name('admin.noticias-add');
+    Route::post('/admin/noticias/add', [NoticiaController::class, 'add'])->name('admin.noticias.add');
 });
 
 // Ruta para redireccionar al login si no está autenticado

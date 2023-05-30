@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Administración | Usuarios - Studium</title>
+    <title>Administración | Publicaciones - Studium</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link href="/css/main.css" rel="stylesheet">
@@ -53,7 +53,7 @@
             <!-- Search -->
             <section>
                 <form class="search" method="get" action="#">
-                    <input type="text" name="query" placeholder="Search" />
+                    <input type="text" name="query" placeholder="Buscar" />
                 </form>
             </section>
 
@@ -95,31 +95,26 @@
         <div id="main">
             <section>
                 <h3><?php echo $titulo; ?></h3>
+                <div class="align align-right">
+                    <a href="/admin/noticias/añadir" class="button large">Añadir</a>
+                </div>
                 <div class="table-wrapper">
                     <table>
                         <thead>
                             <tr>
-                                <th>
-                                    Nombre
-                                    <a href="/admin/usuarios?sort=nombre"><i class="bi bi-arrow-up"></i></a>
-                                    <a href="/admin/usuarios?sort=-nombre"><i class="bi bi-arrow-down"></i></a>
-                                </th>
-                                <th>Nombre de Usuario</th>
-                                <th>Email</th>
+                                <th>Titulo</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($usuarios as $u) { ?>
+                            <?php foreach ($noticias as $n) { ?>
                                 <tr>
-                                    <td><?php echo $u->nombre; ?></td>
-                                    <td><?php echo $u->username; ?></td>
-                                    <td><?php echo $u->email; ?></td>
+                                    <td><?php echo $n->titulo; ?></td>
                                     <td>
-                                        <a href="/usuario/<?php echo $u->id; ?>" class="button medium">Mostrar</a>
-                                        <a href="/usuario/<?php echo $u->id; ?>/editar" class="button medium">Editar</a>
-                                        <form action="/usuario/<?php echo $u->id; ?>/borrar" method="POST" style="display: inline-block;">
-                                            <button type="submit" class="button medium" onclick="return confirm('¿Está seguro de eliminar a <?php echo $u->nombre . ' - ' . $u->email; ?>?')">Borrar</i></button>
+                                        <a href="/admin/noticia/<?php echo $n->id; ?>" class="button medium">Mostrar</a>
+                                        <a href="/admin/noticia/<?php echo $n->id; ?>/editar" class="button medium">Editar</a>
+                                        <form action="/admin/noticia/<?php echo $n->id; ?>/borrar" method="POST" style="display: inline-block;">
+                                            <button type="submit" class="button medium" onclick="return confirm('¿Está seguro de eliminar la noticia <?php echo $n->titulo; ?>?')">Borrar</i></button>
                                         </form>
                                     </td>
                                 </tr>

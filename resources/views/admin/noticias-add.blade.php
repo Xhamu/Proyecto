@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Administración | Usuarios - Studium</title>
+    <title>Administración | Publicaciones - Studium</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link href="/css/main.css" rel="stylesheet">
@@ -11,15 +11,15 @@
 <body class="is-preload">
 
     <?php if (session('success')) { ?>
-        <div class="col-lg-12 col-6 alert alert-success">
-            <?php echo session('success'); ?>
-        </div>
+    <div class="col-lg-12 col-6 alert alert-success">
+        <?php echo session('success'); ?>
+    </div>
     <?php } ?>
 
     <?php if (session('error')) { ?>
-        <div class="col-lg-12 col-6 alert alert-damger">
-            <?php echo session('error'); ?>
-        </div>
+    <div class="col-lg-12 col-6 alert alert-damger">
+        <?php echo session('error'); ?>
+    </div>
     <?php } ?>
     <!-- Wrapper -->
     <div id="wrapper">
@@ -30,7 +30,7 @@
             <nav class="links">
                 <ul>
                     <?php if (auth()->user()->id_rol === 1) { ?>
-                        <li><a href="/admin">Panel de administración</a></li>
+                    <li><a href="/admin">Panel de administración</a></li>
                     <?php } ?>
                     <li><a href="/usuario/<?php echo auth()->user()->id; ?>">Mi perfil</a></li>
                     <li><a href="/usuario/<?php echo auth()->user()->id; ?>/amistades">Mis amistades</a></li>
@@ -53,7 +53,7 @@
             <!-- Search -->
             <section>
                 <form class="search" method="get" action="#">
-                    <input type="text" name="query" placeholder="Search" />
+                    <input type="text" name="query" placeholder="Buscar" />
                 </form>
             </section>
 
@@ -61,12 +61,12 @@
             <section>
                 <ul class="links">
                     <?php if (auth()->user()->id_rol === 1) { ?>
-                        <li>
-                            <a href="/admin">
-                                <h3>Panel de administración</h3>
-                                <p>Mostrar panel de administración</p>
-                            </a>
-                        </li>
+                    <li>
+                        <a href="/admin">
+                            <h3>Panel de administración</h3>
+                            <p>Mostrar panel de administración</p>
+                        </a>
+                    </li>
                     <?php } ?>
                     <li>
                         <a href="/usuario/<?php echo auth()->user()->id; ?>">
@@ -94,39 +94,31 @@
         <!-- Main -->
         <div id="main">
             <section>
-                <h3><?php echo $titulo; ?></h3>
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>
-                                    Nombre
-                                    <a href="/admin/usuarios?sort=nombre"><i class="bi bi-arrow-up"></i></a>
-                                    <a href="/admin/usuarios?sort=-nombre"><i class="bi bi-arrow-down"></i></a>
-                                </th>
-                                <th>Nombre de Usuario</th>
-                                <th>Email</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($usuarios as $u) { ?>
-                                <tr>
-                                    <td><?php echo $u->nombre; ?></td>
-                                    <td><?php echo $u->username; ?></td>
-                                    <td><?php echo $u->email; ?></td>
-                                    <td>
-                                        <a href="/usuario/<?php echo $u->id; ?>" class="button medium">Mostrar</a>
-                                        <a href="/usuario/<?php echo $u->id; ?>/editar" class="button medium">Editar</a>
-                                        <form action="/usuario/<?php echo $u->id; ?>/borrar" method="POST" style="display: inline-block;">
-                                            <button type="submit" class="button medium" onclick="return confirm('¿Está seguro de eliminar a <?php echo $u->nombre . ' - ' . $u->email; ?>?')">Borrar</i></button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
-                </div>
+                <h3>Añadir nueva noticia</h3>
+                <form method="post" action="/admin/noticias/add">
+                    @csrf
+                    <div class="row gtr-uniform">
+                        <div class="col-12 col-12-xsmall">
+                            <input type="text" name="titulo" id="titulo" value="{{ old('titulo') }}"
+                                placeholder="Titulo" />
+                            <p style="color: red; font-size: 12px;">{{ $errors->first('titulo') }}</p>
+                        </div>
+                        <div class="col-12 col-12-xsmall">
+                            <input type="text" name="subtitulo" id="subtitulo" value="{{ old('subtitulo') }}"
+                                placeholder="Subtítulo (opcional)" />
+                        </div>
+                        <div class="col-12">
+                            <textarea name="contenido" id="contenido" placeholder="Contenido de la noticia" rows="20" style="resize: none;">{{ old('contenido') }}</textarea>
+                            <p style="color: red; font-size: 12px;">{{ $errors->first('contenido') }}</p>
+                        </div>
+                        <div class="col-12">
+                            <ul class="actions">
+                                <li><input type="submit" value="Añadir" /></li>
+                                <li><input type="reset" value="Limpiar" /></li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
             </section>
         </div>
 
@@ -177,8 +169,10 @@
             <section id="footer">
                 <ul class="icons">
                     <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-                    <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-                    <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+                    <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a>
+                    </li>
+                    <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a>
+                    </li>
                     <li><a href="#" class="icon solid fa-rss"><span class="label">RSS</span></a></li>
                     <li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
                 </ul>

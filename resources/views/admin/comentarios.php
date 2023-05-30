@@ -161,6 +161,13 @@
                             </header>
                         </article>
                     </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/admin/noticias">Gestionar noticias</a></h3>
+                            </header>
+                        </article>
+                    </li>
                 </ul>
             </section>
 

@@ -16,6 +16,7 @@ class UserController extends Controller
         $sort = $request->query('sort');
 
         $usuarios = User::select('users.*')
+            ->latest('id')
             ->when($request->has('nombre'), function ($query) use ($request) {
                 return $query->where('users.nombre', 'like', '%' . $request->query('nombre') . '%');
             })
