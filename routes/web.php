@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminIndexController;
+use App\Http\Controllers\AmistadController;
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
@@ -38,9 +39,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/usuario/{id}', [PerfilController::class, 'showPerfil'])->name('usuario.perfil');
 
-    Route::get('/usuario/{id}/amistades', function () {
-        return view('usuario.amistades');
-    });
+    Route::get('/usuario/{id}/amistades', [AmistadController::class, 'index'])->name('usuario.amistades');
 
     Route::get('/usuario/{id}/editar', function () {
         return view('usuario.amistades');
