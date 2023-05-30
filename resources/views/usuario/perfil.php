@@ -84,50 +84,31 @@
         <div id="main">
             <!-- Post -->
             <h1>Publicaciones</h1>
-            <article class="post">
-                <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod
-                    placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non
-                    congue ullam corper. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta
-                    lectus vitae, ultricies congue gravida diam non fringilla.</p>
-                <div class="col-12">
-                    <ul class="actions">
-                        <li><input class="button large" type="submit" value="Mostrar publicación" /></li>
-                    </ul>
-                </div>
-                <footer>
-                    <ul class="stats">
-                        <li class="icon solid fa-heart"> 28</li>
-                        <li class="icon solid fa-comment"> 128</li>
-                    </ul>
-                </footer>
-                <div class="meta">
-                    <time class="published" datetime="2015-11-01">12/05/2023 12:40:30</time>
-                    <a href="#" class="author"><span class="name">Samuel Rodriguez</span></a>
-                </div>
-            </article>
-
-            <!-- Post -->
-            <article class="post">
-                <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod
-                    placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non
-                    congue ullam corper. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta
-                    lectus vitae, ultricies congue gravida diam non fringilla.</p>
-                <div class="col-12">
-                    <ul class="actions">
-                        <li><input class="button large" type="submit" value="Mostrar publicación" /></li>
-                    </ul>
-                </div>
-                <footer>
-                    <ul class="stats">
-                        <li class="icon solid fa-heart"> 28</li>
-                        <li class="icon solid fa-comment"> 128</li>
-                    </ul>
-                </footer>
-                <div class="meta">
-                    <time class="published" datetime="2015-11-01">12/05/2023 12:40:30</time>
-                    <a href="#" class="author"><span class="name">Samuel Rodriguez</span></a>
-                </div>
-            </article>
+            <?php foreach ($publicaciones as $p) { ?>
+                <article class="post">
+                    <p><?php echo $p->contenido; ?></p>
+                    <div class="col-12">
+                        <ul class="actions">
+                            <li><a href="/publicacion/<?php echo $p->id; ?>" class="button medium">Ver publicación</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <footer>
+                        <ul class="stats">
+                            <?php
+                            $likedByUser = $p->likes->contains('user_id', auth()->user()->id);
+                            $estilo = $likedByUser ? 'red' : '';
+                            ?>
+                            <li class="icon solid fa-heart" style="color: <?php echo $estilo; ?>;"> <?php echo $p->likes_count; ?></li>
+                            <li class="icon solid fa-comment" type="submit"> <?php echo $p->comentarios_count; ?></li>
+                        </ul>
+                    </footer>
+                    <div class="meta">
+                        <time class="published"><?php echo $p->created_at->format('d/m/Y'); ?></time>
+                        <a href="/usuario/<?php echo $p->usuario->id; ?>" class="author"><span class="name"><?php echo $p->usuario->nombre . ' (@' . $p->usuario->username . ')'; ?></span></a>
+                    </div>
+                </article>
+            <?php } ?>
         </div>
 
         <!-- Sidebar -->
@@ -136,48 +117,46 @@
             <!-- Intro -->
             <section id="intro">
                 <header>
-                    <h2><?php echo auth()->user()->nombre; ?></h2>
-                    <h3><?php echo '@' . auth()->user()->username; ?></h3>
-                    <p>Miembro/a desde <?php echo auth()->user()->created_at->format('m/Y'); ?></p>
+                    <h2><?php echo $usuario->nombre; ?></h2>
+                    <h3><?php echo '@' . $usuario->username; ?></h3>
+                    <p>Miembro/a desde <?php echo $usuario->created_at->format('m/Y'); ?></p>
                 </header>
-                <div class="col-12">
-                    <ul class="actions">
-                        <li>
-                            <a href="/usuario/<?php echo auth()->user()->id; ?>/editar" class="button large">
-                                <p>Editar perfil</p>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <?php if ($usuario->id == auth()->user()->id) { ?>
+                    <div class="col-12">
+                        <ul class="actions">
+                            <li>
+                                <a href="/usuario/<?php echo $usuario->id; ?>/editar" class="button large">
+                                    <p>Editar perfil</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                <?php } else { ?>
+                    <div class="col-12">
+                        <ul class="actions">
+                            <li>
+                                <a href="/usuario/<?php echo $usuario->id; ?>/añadir-amigo" class="button large">
+                                    <p>Añadir a amigo</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                <?php } ?>
             </section>
 
             <section>
                 <ul class="posts">
                     <h3>Sugerencias de amistad</h3>
-                    <li>
-                        <article>
-                            <header>
-                                <h3><a href="single.html">Amigo numero 1</a></h3>
-                                <time class="published" datetime="2015-10-20">@Amigonumero1</time>
-                            </header>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h3><a href="single.html">Amigo numero 2</a></h3>
-                                <time class="published" datetime="2015-10-15">@Amigonumero2</time>
-                            </header>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h3><a href="single.html">Amigo numero 3</a></h3>
-                                <time class="published" datetime="2015-10-10">@Amigonumero3</time>
-                            </header>
-                        </article>
-                    </li>
+                    <?php foreach ($random as $r) { ?>
+                        <li>
+                            <article>
+                                <header>
+                                    <h3><a href="/usuario/<?php echo $r->id; ?>"><?php echo $r->nombre; ?></a></h3>
+                                    <time class="published" datetime="2015-10-20">@<?php echo $r->username; ?></time>
+                                </header>
+                            </article>
+                        </li>
+                    <?php } ?>
                 </ul>
             </section>
 

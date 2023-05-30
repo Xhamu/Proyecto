@@ -5,6 +5,7 @@ use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NoticiaController;
+use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\PublicacionController;
 use App\Http\Controllers\UserController;
 use App\Models\Publicacion;
@@ -35,9 +36,7 @@ Route::post('/register', [LoginController::class, 'register'])->name('register.p
 Route::middleware('auth')->group(function () {
     Route::get('/inicio', [HomeController::class, 'showInicio'])->name('usuario.index');
 
-    Route::get('/usuario/{id}', function () {
-        return view('usuario.perfil');
-    });
+    Route::get('/usuario/{id}', [PerfilController::class, 'showPerfil'])->name('usuario.perfil');
 
     Route::get('/usuario/{id}/amistades', function () {
         return view('usuario.amistades');
