@@ -7,30 +7,26 @@ use App\Models\Noticia;
 use App\Models\Publicacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
 
     public function showInicio()
     {
-        //Publicaciones
         $user = auth()->user();
 
-        $publicaciones = Publicacion::select('publicaciones.*')
-            ->with('usuario')
+        $amigoIds = $user->amistades->pluck('amigo_id');
+
+        $publicaciones = Publicacion::where(function ($query) use ($amigoIds, $user) {
+            $query->whereIn('user_id', $amigoIds)
+                ->orWhere('user_id', $user->id);
+        })
             ->withCount('likes', 'comentarios')
-            ->latest('id')
+            ->with('usuario')
+            ->latest()
             ->get();
 
-        $amistades = $user->amistades;
-
-        if ($user->amistades) {
-            foreach ($amistades as $amistad) {
-                $publicaciones = $publicaciones->merge($amistad->usuario->publicaciones->with('usuario')->withCount('likes', 'comentarios')->latest()->get());
-            }
-        }
-
-        //Noticias
         $noticias = Noticia::select('noticias.*')
             ->latest('id')
             ->limit(5)
@@ -38,6 +34,7 @@ class HomeController extends Controller
 
         return view('usuario.index', compact('publicaciones', 'noticias'));
     }
+
 
     public function publicar(Request $request)
     {

@@ -55,4 +55,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Like::class);
     }
+
+    public function amistades()
+    {
+        return $this->hasMany(Amistad::class, 'user_id');
+    }
 }

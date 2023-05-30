@@ -13,6 +13,10 @@ class PerfilController extends Controller
     {
         $usuario = User::find($id);
 
+        if (is_null($usuario)) {
+            return redirect('/');
+        }
+
         $publicaciones = $usuario->publicaciones()->with('usuario')->withCount('likes', 'comentarios')->latest()->get();
 
         $random = User::inRandomOrder()->limit(3)->where('id', '!=', $usuario->id)->get();

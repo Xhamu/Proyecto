@@ -47,13 +47,16 @@ class LoginController extends Controller
     {
         $this->validate($request, [
             'nombre' => 'required',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email|unique:users,email',
+            'username' => 'required|unique:users,username',
             'password' => 'required|min:6',
         ], [
             'nombre.required' => 'El campo es obligatorio.',
             'email.required' => 'El campo es obligatorio.',
             'email.email' => 'Debe ser un formato válido de correo electrónico.',
             'email.unique' => 'Ya existe un usuario con ese correo electrónico.',
+            'username.required' => 'El campo es obligatorio.',
+            'username.unique' => 'Ya existe un usuario  con este nombre.',
             'password.required' => 'El campo es obligatorio.',
             'password.min' => 'La contraseña debe tener al menos :min caracteres.',
         ]);
