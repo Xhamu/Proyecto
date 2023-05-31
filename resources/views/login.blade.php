@@ -8,6 +8,28 @@
 
 <body>
     <div class="container">
+        <video autoplay loop muted
+            style=" 
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;">
+            <source src="/video/intro.mp4" type="video/mp4">
+        </video>
+        <div class="overlay"
+            style="
+            position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Adjust the last value (0.6) to control the opacity */
+    z-index: -1;
+        ">
+        </div>
         <div class="screen">
             <div class="screen__content">
                 <form class="login" method="POST" action="{{ route('login.post') }}">
