@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Noticias - Studium</title>
+    <title>Mostrar publicación - Studium</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="/css/main.css" />
@@ -84,20 +84,39 @@
         <!-- Main -->
         <div id="main">
 
-            <?php foreach ($noticias as $n) { ?>
+            <div class="col-12">
+                <ul class="actions">
+                    <li><a href="/inicio" class="button medium">Volver al inicio</a>
+                    </li>
+                </ul>
+            </div>
+
+            <?php foreach ($publicaciones as $p) { ?>
                 <article class="post">
                     <header>
                         <div class="title">
-                            <h2><a href="#"><?php echo $n->titulo; ?></a></h2>
-                            <p><?php echo $n->subtitulo; ?></p>
+                            <h2><a href="#"><?php echo $p->titulo; ?></a></h2>
+                            <p><?php echo $p->subtitulo; ?></p>
                         </div>
                         <div class="meta">
-                            <time class="published" datetime="2015-11-01"><?php echo $n->created_at->format('H:i d/m/Y'); ?></time>
-                            <a href="#" class="author"><span class="name">Noticias</span><img src="images/avatar.jpg" alt="" /></a>
+                            <time class="published" datetime="2015-11-01"><?php echo $p->created_at->format('H:i d/m/Y'); ?></time>
+                            <a href="#" class="author"><span class="name"><?php echo $p->usuario->nombre . ' (@' . $p->usuario->username . ')'; ?></span><img src="images/avatar.jpg" alt="" /></a>
                         </div>
                     </header>
-                    <span class="image featured"><img src="images/logo.png" alt="" /></span>
-                    <p><?php echo $n->contenido; ?></p>
+                    <p><?php echo $p->contenido; ?></p>
+                    <footer>
+                        <ul class="stats">
+                            <?php
+                            $likedByUser = $p->likes->contains('user_id', auth()->user()->id);
+                            $estilo = $likedByUser ? 'red' : '';
+                            if ($likedByUser) { ?>
+                                <li class="icon solid fa-heart" style="color: <?php echo $estilo; ?>;"> <?php echo $p->likes_count; ?></li>
+                            <?php } else { ?>
+                                <li><a href="/like/<?php echo $p->id; ?>" class="icon solid fa-heart"> <?php echo $p->likes_count; ?></a></li>
+                            <?php } ?>
+                            <li><a href="/comentar/<?php echo $p->id; ?>" class="icon solid fa-comment"> <?php echo $p->comentarios_count; ?></a></li>
+                        </ul>
+                    </footer>
                 </article>
             <?php } ?>
 

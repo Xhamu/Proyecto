@@ -26,13 +26,14 @@ class PublicacionController extends Controller
 
     public function showPublicacion($id_publicacion)
     {
-
-        $publicaciones = Publicacion::select('publicaciones.*')
+        $publicacion = Publicacion::select('publicaciones.*')
             ->with('usuario')
             ->where('id', $id_publicacion)
             ->withCount('likes', 'comentarios')
-            ->get();
+            ->first();
 
-        return view('usuario.publicacion', compact('publicaciones'));
+        $comentarios = $publicacion->comentarios;
+
+        return view('usuario.publicacion', compact('publicacion', 'comentarios'));
     }
 }

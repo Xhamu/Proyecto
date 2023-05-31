@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Administración | Publicaciones - Studium</title>
+    <title>Añadir noticia - Studium</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link href="/css/main.css" rel="stylesheet">

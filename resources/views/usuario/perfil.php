@@ -131,7 +131,7 @@
                             </li>
                         </ul>
                     </div>
-                <?php } else { ?>
+                <?php } else if (!$esAmigo) { ?>
                     <div class="col-12">
                         <ul class="actions">
                             <li>

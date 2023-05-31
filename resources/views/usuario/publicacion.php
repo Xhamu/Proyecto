@@ -1,9 +1,4 @@
 <!DOCTYPE HTML>
-<!--
-	Future Imperfect by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
 
 <head>
@@ -95,36 +90,38 @@
                     </li>
                 </ul>
             </div>
-
-            <?php foreach ($publicaciones as $p) { ?>
-                <article class="post">
-                    <header>
-                        <div class="title">
-                            <h2><a href="#"><?php echo $p->titulo; ?></a></h2>
-                            <p><?php echo $p->subtitulo; ?></p>
-                        </div>
-                        <div class="meta">
-                            <time class="published" datetime="2015-11-01"><?php echo $p->created_at->format('H:i d/m/Y'); ?></time>
-                            <a href="#" class="author"><span class="name"><?php echo $p->usuario->nombre . ' (@' . $p->usuario->username . ')'; ?></span><img src="images/avatar.jpg" alt="" /></a>
-                        </div>
-                    </header>
-                    <p><?php echo $p->contenido; ?></p>
-                    <footer>
-                        <ul class="stats">
-                            <?php
-                            $likedByUser = $p->likes->contains('user_id', auth()->user()->id);
-                            $estilo = $likedByUser ? 'red' : '';
-                            if ($likedByUser) { ?>
-                                <li class="icon solid fa-heart" style="color: <?php echo $estilo; ?>;"> <?php echo $p->likes_count; ?></li>
-                            <?php } else { ?>
-                                <li><a href="/like/<?php echo $p->id; ?>" class="icon solid fa-heart"> <?php echo $p->likes_count; ?></a></li>
-                            <?php } ?>
-                            <li><a href="/comentar/<?php echo $p->id; ?>" class="icon solid fa-comment"> <?php echo $p->comentarios_count; ?></a></li>
-                        </ul>
-                    </footer>
-                </article>
-            <?php } ?>
-
+            <article class="post">
+                <header>
+                    <div class="title">
+                        <h2><a href="#"><?php echo $publicacion->titulo; ?></a></h2>
+                        <p><?php echo $publicacion->subtitulo; ?></p>
+                    </div>
+                    <div class="meta">
+                        <time class="published" datetime="2015-11-01"><?php echo $publicacion->created_at->format('H:i d/m/Y'); ?></time>
+                        <a class="published" href="#" class="author"><span class="name"><?php echo $publicacion->usuario->nombre . ' (@' . $publicacion->usuario->username . ')'; ?></span><img src="images/avatar.jpg" alt="" /></a>
+                    </div>
+                </header>
+                <p><?php echo $publicacion->contenido; ?></p>
+                <footer>
+                    <ul class="stats">
+                        <?php
+                        $likedByUser = $publicacion->likes->contains('user_id', auth()->user()->id);
+                        $estilo = $likedByUser ? 'red' : '';
+                        if ($likedByUser) { ?>
+                            <li class="icon solid fa-heart" style="color: <?php echo $estilo; ?>;"> <?php echo $publicacion->likes_count; ?></li>
+                        <?php } else { ?>
+                            <li><a href="/like/<?php echo $publicacion->id; ?>" class="icon solid fa-heart"> <?php echo $publicacion->likes_count; ?></a></li>
+                        <?php } ?>
+                        <li><a href="/comentar/<?php echo $publicacion->id; ?>" class="icon solid fa-comment"> <?php echo $publicacion->comentarios_count; ?></a></li>
+                    </ul>
+                </footer>
+                <?php foreach ($comentarios as $c) { ?>
+                    <div class="title">
+                        <h4><a href="/usuario/<?php echo $c->user_id; ?>"><?php echo $c->usuario->nombre; ?></a></h4>
+                        <p><?php echo $c->contenido; ?></p>
+                    </div>
+                <?php } ?>
+            </article>
         </div>
 
         <!-- Footer -->

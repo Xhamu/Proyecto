@@ -21,6 +21,12 @@ class PerfilController extends Controller
 
         $random = User::inRandomOrder()->limit(3)->where('id', '!=', $usuario->id)->get();
 
-        return view('usuario.perfil', compact('usuario', 'publicaciones', 'random'));
+        $esAmigo = false;
+        if (auth()->check()) {
+            $usuarioActual = auth()->user();
+            $esAmigo = $usuarioActual->amistades()->where('amigo_id', $usuario->id)->exists();
+        }
+
+        return view('usuario.perfil', compact('usuario', 'publicaciones', 'random', 'esAmigo'));
     }
 }
