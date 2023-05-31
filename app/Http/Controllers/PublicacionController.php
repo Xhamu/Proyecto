@@ -32,7 +32,9 @@ class PublicacionController extends Controller
             ->withCount('likes', 'comentarios')
             ->first();
 
-        $comentarios = $publicacion->comentarios;
+        $comentarios = $publicacion->comentarios()
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return view('usuario.publicacion', compact('publicacion', 'comentarios'));
     }

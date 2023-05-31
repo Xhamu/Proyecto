@@ -49,6 +49,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/publicacion/{id}', [PublicacionController::class, 'showPublicacion'])->name('publicaciones.show');
 
+    Route::post('/comentar/{id}', [ComentarioController::class, 'comentar'])->name('publicaciones.comentar');
+
     Route::get('/like/{id}', [HomeController::class, 'likear'])->name('publicaciones.likear');
 
     Route::get('/noticias', [NoticiaController::class, 'index'])->name('usuario.noticias');

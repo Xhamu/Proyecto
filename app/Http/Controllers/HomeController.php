@@ -39,7 +39,7 @@ class HomeController extends Controller
     public function publicar(Request $request)
     {
         $request->validate([
-            'demo-message' => 'required|max:255',
+            'demo-message' => 'required',
         ]);
 
         $user = auth()->user();

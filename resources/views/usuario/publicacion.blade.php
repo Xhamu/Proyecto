@@ -19,7 +19,7 @@
             <nav class="links">
                 <ul>
                     <?php if (auth()->user()->id_rol === 1) { ?>
-                        <li><a href="/admin">Panel de administración</a></li>
+                    <li><a href="/admin">Panel de administración</a></li>
                     <?php } ?>
                     <li><a href="/usuario/<?php echo auth()->user()->id; ?>">Mi perfil</a></li>
                     <li><a href="/usuario/<?php echo auth()->user()->id; ?>/amistades">Mis amistades</a></li>
@@ -50,12 +50,12 @@
             <section>
                 <ul class="links">
                     <?php if (auth()->user()->id_rol === 1) { ?>
-                        <li>
-                            <a href="/admin">
-                                <h3>Panel de administración</h3>
-                                <p>Mostrar panel de administración</p>
-                            </a>
-                        </li>
+                    <li>
+                        <a href="/admin">
+                            <h3>Panel de administración</h3>
+                            <p>Mostrar panel de administración</p>
+                        </a>
+                    </li>
                     <?php } ?>
                     <li>
                         <a href="/usuario/<?php echo auth()->user()->id; ?>">
@@ -98,7 +98,9 @@
                     </div>
                     <div class="meta">
                         <time class="published" datetime="2015-11-01"><?php echo $publicacion->created_at->format('H:i d/m/Y'); ?></time>
-                        <a class="published" href="#" class="author"><span class="name"><?php echo $publicacion->usuario->nombre . ' (@' . $publicacion->usuario->username . ')'; ?></span><img src="images/avatar.jpg" alt="" /></a>
+                        <a class="published" href="/usuario/<?php echo $publicacion->usuario->id; ?>" class="author"><span
+                                class="name"><?php echo '(@' . $publicacion->usuario->username . ')'; ?></span><img src="images/avatar.jpg"
+                                alt="" /></a>
                     </div>
                 </header>
                 <p><?php echo $publicacion->contenido; ?></p>
@@ -108,18 +110,37 @@
                         $likedByUser = $publicacion->likes->contains('user_id', auth()->user()->id);
                         $estilo = $likedByUser ? 'red' : '';
                         if ($likedByUser) { ?>
-                            <li class="icon solid fa-heart" style="color: <?php echo $estilo; ?>;"> <?php echo $publicacion->likes_count; ?></li>
+                        <li class="icon solid fa-heart" style="color: <?php echo $estilo; ?>;"> <?php echo $publicacion->likes_count; ?></li>
                         <?php } else { ?>
-                            <li><a href="/like/<?php echo $publicacion->id; ?>" class="icon solid fa-heart"> <?php echo $publicacion->likes_count; ?></a></li>
+                        <li><a href="/like/<?php echo $publicacion->id; ?>" class="icon solid fa-heart"> <?php echo $publicacion->likes_count; ?></a>
+                        </li>
                         <?php } ?>
-                        <li><a href="/comentar/<?php echo $publicacion->id; ?>" class="icon solid fa-comment"> <?php echo $publicacion->comentarios_count; ?></a></li>
+                        <li><a class="icon solid fa-comment">
+                                <?php echo $publicacion->comentarios_count; ?></a></li>
                     </ul>
                 </footer>
+                <section>
+                    <form method="post" action="/comentar/<?php echo $publicacion->id; ?>">
+                        @csrf
+                        <div class="row gtr-uniform">
+                            <div class="col-12">
+                                <textarea style="resize: none;" name="contenido" id="contenido" placeholder="Añade un comentario" rows="2"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <ul class="actions">
+                                    <li><button class="button medium" type="submit" value="Publicar">Comentar</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </form>
+                </section>
                 <?php foreach ($comentarios as $c) { ?>
-                    <div class="title">
-                        <h4><a href="/usuario/<?php echo $c->user_id; ?>"><?php echo $c->usuario->nombre; ?></a></h4>
-                        <p><?php echo $c->contenido; ?></p>
-                    </div>
+                <hr>
+                <div class="title">
+                    <h4><a href="/usuario/<?php echo $c->user_id; ?>"><?php echo $c->usuario->nombre; ?></a></h4>
+                    <p><?php echo $c->contenido; ?></p>
+                </div>
                 <?php } ?>
             </article>
         </div>

@@ -22,4 +22,21 @@ class ComentarioController extends Controller
 
         return view('admin.comentarios', compact('titulo', 'comentarios', 'usuarioActual'));
     }
+
+    public function comentar(Request $request, $publicacion_id)
+    {
+        $data = $request->validate([
+            'contenido' => 'required',
+        ]);
+
+        $user = auth()->user();
+
+        $comentario = new Comentario();
+        $comentario->user_id = $user->id;
+        $comentario->publicacion_id = $publicacion_id;
+        $comentario->contenido = $data['contenido'];
+        $comentario->save();
+
+        return redirect()->back();
+    }
 }
