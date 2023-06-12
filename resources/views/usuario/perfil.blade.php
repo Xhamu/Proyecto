@@ -135,9 +135,12 @@
                     <div class="col-12">
                         <ul class="actions">
                             <li>
-                                <a href="/usuario/<?php echo $usuario->id; ?>/añadir-amigo" class="button large">
-                                    <p>Añadir a amigo</p>
-                                </a>
+                                <form action="/usuario/{{ $usuario->id }}/añadir-amigo" method="POST">
+                                @csrf
+                                    <button type="submit" class="button large">
+                                        <p>Seguir</p>
+                                    </button>
+                                </form>
                             </li>
                         </ul>
                     </div>

@@ -94,9 +94,12 @@
                     <div class="col-12">
                         <ul class="actions">
                             <li>
-                                <a href="/unfollow/<?php echo $a->id; ?>" class="button large">
-                                    <p>Dejar de seguir</p>
-                                </a>
+                            <form action="/unfollow/{{ $a->id }}" method="POST">
+                                @csrf
+                                    <button type="submit" class="button large">
+                                        <p>Dejar de seguir</p>
+                                    </button>
+                                </form>
                             </li>
                         </ul>
                     </div>

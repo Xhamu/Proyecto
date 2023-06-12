@@ -45,6 +45,10 @@ Route::middleware('auth')->group(function () {
         return view('usuario.amistades');
     });
 
+    Route::post('/usuario/{id}/añadir-amigo', [PerfilController::class, 'añadirAmigo'])->name('usuario.añadirAmigo');
+
+    Route::post('/unfollow/{id}', [AmistadController::class, 'eliminarAmigo'])->name('usuario.unfollow');
+
     Route::post('/publicar', [HomeController::class, 'publicar'])->name('publicaciones.publicar');
 
     Route::get('/publicacion/{id}', [PublicacionController::class, 'showPublicacion'])->name('publicaciones.show');

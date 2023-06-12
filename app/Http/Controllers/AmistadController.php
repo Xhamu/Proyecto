@@ -19,4 +19,23 @@ class AmistadController extends Controller
 
         return view('usuario.amistades', compact('amistades'));
     }
+
+    public function eliminarAmigo($id)
+    {
+        $usuarioActual = auth()->user();
+
+        // Buscar la amistad existente
+        $amistad = Amistad::where('user_id', $usuarioActual->id)
+            ->where('amigo_id', $id)
+            ->first();
+
+        if ($amistad) {
+            // Eliminar la amistad
+            $amistad->delete();
+
+            return redirect()->back()->with('success', 'Amistad eliminada exitosamente.');
+        } else {
+            return redirect()->back()->with('error', 'No se encontró la amistad.');
+        }
+    }
 }
