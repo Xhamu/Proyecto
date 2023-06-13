@@ -93,7 +93,7 @@
             <article class="post">
                 <header>
                     <div class="title">
-                        <h2><a href="#"><?php echo $publicacion->titulo; ?></a></h2>
+                        <h2>Mostrando publicación de:<a href="#"><?php echo $publicacion->titulo; ?></a></h2>
                         <p><?php echo $publicacion->subtitulo; ?></p>
                     </div>
                     <div class="meta">

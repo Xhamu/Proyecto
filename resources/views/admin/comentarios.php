@@ -114,8 +114,7 @@
                                     <td><?php echo $c->publicacion->contenido; ?></td>
                                     <td><?php echo $c->contenido; ?></td>
                                     <td>
-                                        <a href="/admin/comentario/<?php echo $c->usuario->nombre; ?>" class="button medium">Mostrar</a>
-                                        <a href="/admin/comentario/<?php echo $c->id; ?>/editar" class="button medium">Editar</a>
+                                        <a href="/publicacion/<?php echo $c->publicacion->id; ?>" class="button medium">Mostrar</a>
                                         <form action="/admin/comentario/<?php echo $c->id; ?>/borrar" method="POST" style="display: inline-block;">
                                             <button type="submit" class="button medium" onclick="return confirm('¿Está seguro de eliminar el comentario <?php echo $c->contenido . ' | de: ' . $c->usuario->email; ?>?')">Borrar</i></button>
                                         </form>
