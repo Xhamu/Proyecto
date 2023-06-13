@@ -31,8 +31,8 @@ class UserController extends Controller
                 $direction = $sort[0] == '-' ? 'desc' : 'asc';
                 return $query->orderBy($column, $direction);
             }, function ($query) {
-                return $query->orderBy('users.id', 'asc');
-            })
+            return $query->orderBy('users.id', 'asc');
+        })
             ->paginate(20)
             ->withQueryString();
 
@@ -73,18 +73,18 @@ class UserController extends Controller
             'password' => 'required|min:6',
             'roles' => 'required',
         ], [
-            'nombre.required' => 'El campo es obligatorio.',
-            'email.required' => 'El campo es obligatorio.',
-            'email.email' => 'Debe ser un formato válido.',
-            'email.unique' => 'Ya existe un usuario con ese email.',
-            'fecha.required' => 'El campo es obligatorio.',
-            'fecha.date' => 'Debe ser una fecha válida.',
-            'id_profesion.required' => 'El campo es obligatorio.',
-            'id_profesion.exists' => 'La profesión seleccionada no existe.',
-            'password.required' => 'El campo es obligatorio.',
-            'password.min' => 'La contraseña debe tener al menos :min caracteres.',
-            'roles.required' => 'El campo es obligatorio.',
-        ]);
+                'nombre.required' => 'El campo es obligatorio.',
+                'email.required' => 'El campo es obligatorio.',
+                'email.email' => 'Debe ser un formato válido.',
+                'email.unique' => 'Ya existe un usuario con ese email.',
+                'fecha.required' => 'El campo es obligatorio.',
+                'fecha.date' => 'Debe ser una fecha válida.',
+                'id_profesion.required' => 'El campo es obligatorio.',
+                'id_profesion.exists' => 'La profesión seleccionada no existe.',
+                'password.required' => 'El campo es obligatorio.',
+                'password.min' => 'La contraseña debe tener al menos :min caracteres.',
+                'roles.required' => 'El campo es obligatorio.',
+            ]);
 
         $user = User::create([
             'nombre' => $data['nombre'],
@@ -128,17 +128,17 @@ class UserController extends Controller
             'password' => 'nullable|min:6',
             'roles' => 'required',
         ], [
-            'nombre.required' => 'El campo nombre es obligatorio.',
-            'email.required' => 'El campo email es obligatorio.',
-            'email.email' => 'Debe ser un formato válido.',
-            'email.unique' => 'Ya existe un usuario con ese email.',
-            'fecha.required' => 'El campo fecha es obligatorio.',
-            'fecha.date' => 'Debe ser una fecha válida.',
-            'id_profesion.required' => 'El campo profesion es obligatorio.',
-            'id_profesion.exists' => 'La profesión seleccionada no existe.',
-            'password.min' => 'La contraseña debe tener al menos :min caracteres',
-            'roles.required' => 'El campo es obligatorio',
-        ]);
+                'nombre.required' => 'El campo nombre es obligatorio.',
+                'email.required' => 'El campo email es obligatorio.',
+                'email.email' => 'Debe ser un formato válido.',
+                'email.unique' => 'Ya existe un usuario con ese email.',
+                'fecha.required' => 'El campo fecha es obligatorio.',
+                'fecha.date' => 'Debe ser una fecha válida.',
+                'id_profesion.required' => 'El campo profesion es obligatorio.',
+                'id_profesion.exists' => 'La profesión seleccionada no existe.',
+                'password.min' => 'La contraseña debe tener al menos :min caracteres',
+                'roles.required' => 'El campo es obligatorio',
+            ]);
 
         if (!empty($data['password'])) {
             $data['password'] = bcrypt($data['password']);
@@ -159,18 +159,18 @@ class UserController extends Controller
     {
         $usuario = User::find($id);
 
-        if (is_null($usuario)) {
-            return view('errores.404');
-        }
+        if ($usuario) {
+            // Verificar si el usuario actual es el mismo que se intenta eliminar
+            if ($usuario->id === auth()->user()->id) {
+                return redirect()->back()->with('error', 'No tienes permiso para eliminar tu propio usuario.');
+            }
 
-        if ($usuario->delete()) {
-            $mensaje = 'Se ha borrado el usuario ' . $usuario->nombre;
-            $status = 'success';
+            $usuario->delete();
+
+            return redirect()->back()->with('success', 'El usuario se ha eliminado correctamente.');
         } else {
-            $mensaje = 'Se ha producido un error al eliminar el usuario.';
-            $status = 'error';
+            return redirect()->back()->with('error', 'No se encontró el usuario.');
         }
-
-        return redirect()->route('admin.usuarios')->with($status, $mensaje);
     }
+
 }

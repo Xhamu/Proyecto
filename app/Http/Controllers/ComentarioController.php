@@ -39,4 +39,18 @@ class ComentarioController extends Controller
 
         return redirect()->back();
     }
+
+    public function delete($id)
+    {
+        $comentario = Comentario::find($id);
+
+        if ($comentario) {
+            $comentario->delete();
+
+            return redirect()->back()->with('success', 'El comentario se ha eliminado correctamente.');
+        } else {
+            return redirect()->back()->with('error', 'No se encontró el comentario.');
+        }
+    }
+
 }

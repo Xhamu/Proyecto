@@ -40,9 +40,9 @@ class NoticiaController extends Controller
             'titulo' => 'required',
             'contenido' => 'required',
         ], [
-            'titulo.required' => 'El campo es obligatorio.',
-            'contenido.required' => 'El campo es obligatorio',
-        ]);
+                'titulo.required' => 'El campo es obligatorio.',
+                'contenido.required' => 'El campo es obligatorio',
+            ]);
 
         $noticia = new Noticia();
         $noticia->titulo = $data['titulo'];
@@ -53,5 +53,18 @@ class NoticiaController extends Controller
         $noticia->save();
 
         return redirect('/admin/noticias');
+    }
+
+    public function delete($id)
+    {
+        $noticia = Noticia::find($id);
+
+        if ($noticia) {
+            $noticia->delete();
+
+            return redirect()->back()->with('success', 'La noticia se ha eliminado correctamente.');
+        } else {
+            return redirect()->back()->with('error', 'No se encontró la noticia.');
+        }
     }
 }

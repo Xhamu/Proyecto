@@ -38,4 +38,18 @@ class PublicacionController extends Controller
 
         return view('usuario.publicacion', compact('publicacion', 'comentarios'));
     }
+
+    public function delete($id)
+    {
+        $publicacion = Publicacion::find($id);
+
+        if ($publicacion) {
+            $publicacion->delete();
+
+            return redirect()->back()->with('success', 'La publicación se ha eliminado correctamente.');
+        } else {
+            return redirect()->back()->with('error', 'No se encontró la publicación.');
+        }
+    }
+
 }

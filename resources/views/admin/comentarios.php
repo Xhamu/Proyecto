@@ -94,7 +94,9 @@
         <!-- Main -->
         <div id="main">
             <section>
-                <h3><?php echo $titulo; ?></h3>
+                <h3>
+                    <?php echo $titulo; ?>
+                </h3>
                 <div class="table-wrapper">
                     <table>
                         <thead>
@@ -109,15 +111,23 @@
                         <tbody>
                             <?php foreach ($comentarios as $c) { ?>
                                 <tr>
-                                    <td><?php echo $c->usuario->nombre; ?></td>
-                                    <td><?php echo $c->publicacion->id; ?></td>
-                                    <td><?php echo $c->publicacion->contenido; ?></td>
-                                    <td><?php echo $c->contenido; ?></td>
                                     <td>
-                                        <a href="/publicacion/<?php echo $c->publicacion->id; ?>" class="button medium">Mostrar</a>
-                                        <form action="/admin/comentario/<?php echo $c->id; ?>/borrar" method="POST" style="display: inline-block;">
-                                            <button type="submit" class="button medium" onclick="return confirm('¿Está seguro de eliminar el comentario <?php echo $c->contenido . ' | de: ' . $c->usuario->email; ?>?')">Borrar</i></button>
-                                        </form>
+                                        <?php echo $c->usuario->nombre; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $c->publicacion->id; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $c->publicacion->contenido; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $c->contenido; ?>
+                                    </td>
+                                    <td>
+                                        <a href="/publicacion/<?php echo $c->publicacion->id; ?>"
+                                            class="button medium">Mostrar</a>
+                                        <a href="/admin/comentario/<?php echo $c->id; ?>/borrar"
+                                            class="button medium">Borrar</a>
                                     </td>
                                 </tr>
                             <?php } ?>

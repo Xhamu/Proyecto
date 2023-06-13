@@ -114,9 +114,7 @@
                                     <td>
                                         <a href="/publicacion/<?php echo $p->id; ?>" class="button medium">Mostrar</a>
                                         <a href="/admin/publicacion/<?php echo $p->id; ?>/editar" class="button medium">Editar</a>
-                                        <form action="/admin/publicacion/<?php echo $p->id; ?>/borrar" method="POST" style="display: inline-block;">
-                                            <button type="submit" class="button medium" onclick="return confirm('¿Está seguro de eliminar la publicación <?php echo $p->contenido . ' | de: ' . $p->usuario->email; ?>?')">Borrar</i></button>
-                                        </form>
+                                        <a href="/admin/publicacion/<?php echo $p->id; ?>/borrar" class="button medium">Borrar</a>
                                     </td>
                                 </tr>
                             <?php } ?>

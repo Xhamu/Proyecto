@@ -113,9 +113,7 @@
                                     <td>
                                         <a href="/noticias/" class="button medium">Mostrar</a>
                                         <a href="/admin/noticia/<?php echo $n->id; ?>/editar" class="button medium">Editar</a>
-                                        <form action="/admin/noticia/<?php echo $n->id; ?>/borrar" method="POST" style="display: inline-block;">
-                                            <button type="submit" class="button medium" onclick="return confirm('¿Está seguro de eliminar la noticia <?php echo $n->titulo; ?>?')">Borrar</i></button>
-                                        </form>
+                                        <a href="/admin/noticia/<?php echo $n->id; ?>/borrar" class="button medium">Borrar</a>
                                     </td>
                                 </tr>
                             <?php } ?>

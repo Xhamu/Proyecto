@@ -118,9 +118,7 @@
                                     <td>
                                         <a href="/usuario/<?php echo $u->id; ?>" class="button medium">Mostrar</a>
                                         <a href="/usuario/<?php echo $u->id; ?>/editar" class="button medium">Editar</a>
-                                        <form action="/usuario/<?php echo $u->id; ?>/borrar" method="POST" style="display: inline-block;">
-                                            <button type="submit" class="button medium" onclick="return confirm('¿Está seguro de eliminar a <?php echo $u->nombre . ' - ' . $u->email; ?>?')">Borrar</i></button>
-                                        </form>
+                                        <a href="/admin/usuario/<?php echo $u->id; ?>/borrar" class="button medium">Borrar</a>
                                     </td>
                                 </tr>
                             <?php } ?>
