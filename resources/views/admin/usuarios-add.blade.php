@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Administración | Usuarios - Studium</title>
+    <title>Añadir noticia - Studium</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link href="/css/main.css" rel="stylesheet">
@@ -11,15 +11,15 @@
 <body class="is-preload">
 
     <?php if (session('success')) { ?>
-        <div class="col-lg-12 col-6 alert alert-success">
-            <?php echo session('success'); ?>
-        </div>
+    <div class="col-lg-12 col-6 alert alert-success">
+        <?php echo session('success'); ?>
+    </div>
     <?php } ?>
 
     <?php if (session('error')) { ?>
-        <div class="col-lg-12 col-6 alert alert-damger">
-            <?php echo session('error'); ?>
-        </div>
+    <div class="col-lg-12 col-6 alert alert-damger">
+        <?php echo session('error'); ?>
+    </div>
     <?php } ?>
     <!-- Wrapper -->
     <div id="wrapper">
@@ -30,7 +30,7 @@
             <nav class="links">
                 <ul>
                     <?php if (auth()->user()->id_rol === 1) { ?>
-                        <li><a href="/admin">Panel de administración</a></li>
+                    <li><a href="/admin">Panel de administración</a></li>
                     <?php } ?>
                     <li><a href="/usuario/<?php echo auth()->user()->id; ?>">Mi perfil</a></li>
                     <li><a href="/usuario/<?php echo auth()->user()->id; ?>/amistades">Mis amistades</a></li>
@@ -53,7 +53,7 @@
             <!-- Search -->
             <section>
                 <form class="search" method="get" action="#">
-                    <input type="text" name="query" placeholder="Search" />
+                    <input type="text" name="query" placeholder="Buscar" />
                 </form>
             </section>
 
@@ -61,12 +61,12 @@
             <section>
                 <ul class="links">
                     <?php if (auth()->user()->id_rol === 1) { ?>
-                        <li>
-                            <a href="/admin">
-                                <h3>Panel de administración</h3>
-                                <p>Mostrar panel de administración</p>
-                            </a>
-                        </li>
+                    <li>
+                        <a href="/admin">
+                            <h3>Panel de administración</h3>
+                            <p>Mostrar panel de administración</p>
+                        </a>
+                    </li>
                     <?php } ?>
                     <li>
                         <a href="/usuario/<?php echo auth()->user()->id; ?>">
@@ -94,36 +94,47 @@
         <!-- Main -->
         <div id="main">
             <section>
-                <h3><?php echo $titulo; ?></h3>
-                <div class="align align-right">
-                    <a href="/admin/usuario/añadir" class="button large">Añadir</a>
-                </div>
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Nombre de Usuario</th>
-                                <th>Email</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($usuarios as $u) { ?>
-                                <tr>
-                                    <td><?php echo $u->nombre; ?></td>
-                                    <td><?php echo $u->username; ?></td>
-                                    <td><?php echo $u->email; ?></td>
-                                    <td>
-                                        <a href="/usuario/<?php echo $u->id; ?>" class="button medium">Mostrar</a>
-                                        <a href="/usuario/<?php echo $u->id; ?>/editar" class="button medium">Editar</a>
-                                        <a href="/admin/usuario/<?php echo $u->id; ?>/borrar" class="button medium">Borrar</a>
-                                    </td>
-                                </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
-                </div>
+                <h3>Añadir nuevo usuario</h3>
+                <form method="post" action="/admin/usuario/add">
+                    @csrf
+                    <div class="row gtr-uniform">
+                        <div class="col-12 col-12-xsmall">
+                            <input type="text" name="nombre" id="nombre" value="{{ old('nombre') }}"
+                                placeholder="Nombre completo" />
+                            <p style="color: red; font-size: 12px;">{{ $errors->first('nombre') }}</p>
+                        </div>
+                        <div class="col-12 col-12-xsmall">
+                            <input type="text" name="username" id="username" value="{{ old('username') }}"
+                                placeholder="Nombre de usuario" />
+                            <p style="color: red; font-size: 12px;">{{ $errors->first('username') }}</p>
+                        </div>
+                        <div class="col-12 col-12-xsmall">
+                            <input type="email" name="email" id="email" value="{{ old('email') }}"
+                                placeholder="Email" />
+                            <p style="color: red; font-size: 12px;">{{ $errors->first('email') }}</p>
+                        </div>
+                        <div class="col-12 col-12-xsmall">
+                            <input type="password" name="password" id="password"
+                                placeholder="Contraseña" />
+                            <p style="color: red; font-size: 12px;">{{ $errors->first('password') }}</p>
+                        </div>
+                        <div class="col-12">
+                            <select name="rol" id="rol">
+                                <option value="">Seleccionar rol</option>
+                                @foreach ($roles as $rol)
+                                    <option value="{{ $rol->id }}">{{ $rol->nombre }}</option>
+                                    <p style="color: red; font-size: 12px;">{{ $errors->first('rol') }}</p>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <ul class="actions">
+                                <li><input type="submit" value="Añadir" /></li>
+                                <li><input type="reset" value="Limpiar" /></li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
             </section>
         </div>
 
@@ -174,8 +185,10 @@
             <section id="footer">
                 <ul class="icons">
                     <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-                    <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-                    <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+                    <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a>
+                    </li>
+                    <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a>
+                    </li>
                     <li><a href="#" class="icon solid fa-rss"><span class="label">RSS</span></a></li>
                     <li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
                 </ul>

@@ -17,50 +17,11 @@ class UserController extends Controller
 
         $usuarios = User::select('users.*')
             ->latest('id')
-            ->when($request->has('nombre'), function ($query) use ($request) {
-                return $query->where('users.nombre', 'like', '%' . $request->query('nombre') . '%');
-            })
-            ->when($request->has('email'), function ($query) use ($request) {
-                return $query->where('users.email', 'like', '%' . $request->query('email') . '%');
-            })
-            ->when($request->has('profesion'), function ($query) use ($request) {
-                return $query->whereIn('users.id_rol', $request->query('rol'));
-            })
-            ->when($sort, function ($query) use ($sort) {
-                $column = ltrim($sort, '-');
-                $direction = $sort[0] == '-' ? 'desc' : 'asc';
-                return $query->orderBy($column, $direction);
-            }, function ($query) {
-            return $query->orderBy('users.id', 'asc');
-        })
-            ->paginate(20)
-            ->withQueryString();
+            ->get();
 
         $usuarioActual = auth()->user();
 
         return view('admin.usuarios', compact('titulo', 'usuarios', 'usuarioActual'));
-    }
-
-    public function crear()
-    {
-        $roles = Rol::all();
-
-        return view('admin.usuarios-crear', compact('roles'));
-    }
-
-    public function mostrar($id)
-    {
-        $usuario = User::leftJoin('profesions', 'profesions.id', '=', 'usuarios.id_profesion')
-            ->select('usuarios.id', 'usuarios.nombre', 'usuarios.email', 'usuarios.fecha', 'profesions.titulo')
-            ->find($id);
-
-        if (is_null($usuario)) {
-            return view('errores.404');
-        }
-
-        $roleName = $usuario->roles->pluck('name')->implode(', ');
-
-        return view('admin.usuarios-mostrar', compact('usuario', 'roleName'));
     }
 
     public function add()
@@ -98,62 +59,84 @@ class UserController extends Controller
         return redirect()->route('admin.usuarios');
     }
 
-    public function editar($id)
+    public function editUsuario($id)
     {
-        $titulo = 'Editar usuario';
-
-        $usuario = User::find($id);
-
-        if (is_null($usuario)) {
-            return view('errores.404');
-        }
-
+        $usuario = User::findOrFail($id);
         $roles = Rol::all();
 
-        return view('admin.usuarios-editar', compact('titulo', 'usuario', 'profesiones', 'roles'));
+        return view('usuario.usuarios-edit', compact('usuario', 'roles'));
     }
 
-    public function update($id)
+    public function updateUsuario(Request $request, $id)
     {
-        $usuario = User::find($id);
-
-        if (is_null($usuario)) {
-            return view('errores.404');
-        }
-
-        $data = request()->validate([
+        $request->validate([
             'nombre' => 'required',
-            'email' => ['required|email|unique:users,email'],
-            'username' => ['required|email|unique:users,username'],
-            'password' => 'nullable|min:6',
-            'roles' => 'required',
-        ], [
-                'nombre.required' => 'El campo nombre es obligatorio.',
-                'email.required' => 'El campo email es obligatorio.',
-                'email.email' => 'Debe ser un formato válido.',
-                'email.unique' => 'Ya existe un usuario con ese email.',
-                'fecha.required' => 'El campo fecha es obligatorio.',
-                'fecha.date' => 'Debe ser una fecha válida.',
-                'id_profesion.required' => 'El campo profesion es obligatorio.',
-                'id_profesion.exists' => 'La profesión seleccionada no existe.',
-                'password.min' => 'La contraseña debe tener al menos :min caracteres',
-                'roles.required' => 'El campo es obligatorio',
-            ]);
+            'username' => 'required|unique:users,username,' . $id,
+            'email' => 'required|email|unique:users,email,' . $id,
+            'password' => 'nullable',
+            'rol' => 'required|exists:roles,id',
+        ]);
 
-        if (!empty($data['password'])) {
-            $data['password'] = bcrypt($data['password']);
-        } else {
-            unset($data['password']);
+        $usuario = User::findOrFail($id);
+        $usuario->nombre = $request->input('nombre');
+        $usuario->username = $request->input('username');
+        $usuario->email = $request->input('email');
+
+        if ($request->filled('password')) {
+            $usuario->password = bcrypt($request->input('password'));
         }
 
-        $usuario->roles()->detach();
+        $rol = Rol::find($request->input('rol'));
+        $usuario->id_rol = $rol->id;
 
-        $usuario->assignRole($data['roles']);
+        $usuario->save();
 
-        $usuario->update($data);
-
-        return redirect()->route('admin.usuarios');
+        return redirect()->back()->with('success', 'El usuario se ha actualizado correctamente.');
     }
+
+    public function addForm()
+    {
+        $roles = Rol::all(); // Obtener todos los roles desde la base de datos
+
+        return view('admin.usuarios-add', compact('roles'));
+    }
+
+    public function addUsuario(Request $request)
+    {
+        $messages = [
+            'nombre.required' => 'El campo nombre es requerido.',
+            'username.required' => 'El campo username es requerido.',
+            'username.unique' => 'El username ya está en uso.',
+            'email.required' => 'El campo email es requerido.',
+            'email.email' => 'El formato del email no es válido.',
+            'email.unique' => 'El email ya está en uso.',
+            'password.required' => 'El campo password es requerido.',
+            'rol.required' => 'Debe seleccionar un rol.',
+            'rol.exists' => 'El rol seleccionado no es válido.',
+        ];
+
+        $request->validate([
+            'nombre' => 'required',
+            'username' => 'required|unique:users',
+            'email' => 'required|email|unique:users',
+            'password' => 'required',
+            'rol' => 'required|exists:roles,id',
+        ], $messages);
+
+        $usuario = new User();
+        $usuario->nombre = $request->input('nombre');
+        $usuario->username = $request->input('username');
+        $usuario->email = $request->input('email');
+        $usuario->password = bcrypt($request->input('password'));
+
+        $rol = Rol::find($request->input('rol'));
+        $usuario->id_rol = $rol->id;
+
+        $usuario->save();
+
+        return redirect()->back()->with('success', 'El usuario se ha creado correctamente.');
+    }
+
 
     public function delete($id)
     {

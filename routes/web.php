@@ -41,9 +41,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/usuario/{id}/amistades', [AmistadController::class, 'index'])->name('usuario.amistades');
 
-    Route::get('/usuario/{id}/editar', function () {
-        return view('usuario.amistades');
-    });
+    Route::get('/usuario/{id}/editar', [UserController::class, 'editUsuario'])->name('usuarios.edit');
+
+    Route::post('/usuario/{id}/update', [UserController::class, 'updateUsuario'])->name('usuarios.update');
 
     Route::post('/usuario/{id}/añadir-amigo', [PerfilController::class, 'añadirAmigo'])->name('usuario.añadirAmigo');
 
@@ -75,6 +75,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/comentario/{id}/borrar', [ComentarioController::class, 'delete'])->name('comentario.delete');
     Route::get('/admin/publicacion/{id}/borrar', [PublicacionController::class, 'delete'])->name('publicacion.delete');
     Route::get('/admin/usuario/{id}/borrar', [UserController::class, 'delete'])->name('usuario.delete');
+    Route::get('/admin/usuario/añadir', [UserController::class, 'addForm'])->name('admin.usuario-add');
+    Route::post('/admin/usuario/add', [UserController::class, 'addUsuario'])->name('admin.usuario.add');
 });
 
 // Ruta para redireccionar al login si no está autenticado
