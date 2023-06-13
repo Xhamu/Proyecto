@@ -112,7 +112,6 @@
                                     <td><?php echo $n->titulo; ?></td>
                                     <td>
                                         <a href="/noticias/" class="button medium">Mostrar</a>
-                                        <a href="/admin/noticia/<?php echo $n->id; ?>/editar" class="button medium">Editar</a>
                                         <a href="/admin/noticia/<?php echo $n->id; ?>/borrar" class="button medium">Borrar</a>
                                     </td>
                                 </tr>

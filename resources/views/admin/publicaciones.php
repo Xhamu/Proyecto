@@ -113,7 +113,6 @@
                                     <td><?php echo $p->contenido; ?></td>
                                     <td>
                                         <a href="/publicacion/<?php echo $p->id; ?>" class="button medium">Mostrar</a>
-                                        <a href="/admin/publicacion/<?php echo $p->id; ?>/editar" class="button medium">Editar</a>
                                         <a href="/admin/publicacion/<?php echo $p->id; ?>/borrar" class="button medium">Borrar</a>
                                     </td>
                                 </tr>
